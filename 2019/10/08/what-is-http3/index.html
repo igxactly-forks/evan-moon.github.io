@@ -16,7 +16,7 @@
 <meta property="og:description" content="HTTP/3는 HTTP(Hypertext Transfer Protocol)의 세 번째 메이저 버전으로, 기존의 HTTP/1, HTTP/2와는 다르게 UDP 기반의 프로토콜인 QUIC을 사용하여 통신하는 프로토콜이다. HTTP/3와 기존 HTTP 들과 가장 큰 차이점이라면 TCP가 아닌 UDP 기반의 통신을 한다는 것이다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/10/08/what-is-http3/thumbnail.jpg">
-<meta property="og:updated_time" content="2019-10-25T13:21:01.718Z">
+<meta property="og:updated_time" content="2019-11-03T06:50:01.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP&#x2F;3는 왜 UDP를 선택한 것일까?">
 <meta name="twitter:description" content="HTTP/3는 HTTP(Hypertext Transfer Protocol)의 세 번째 메이저 버전으로, 기존의 HTTP/1, HTTP/2와는 다르게 UDP 기반의 프로토콜인 QUIC을 사용하여 통신하는 프로토콜이다. HTTP/3와 기존 HTTP 들과 가장 큰 차이점이라면 TCP가 아닌 UDP 기반의 통신을 한다는 것이다.">
@@ -370,7 +370,7 @@
 <h3 id="패킷-손실-감지에-걸리는-시간-단축"><a href="#패킷-손실-감지에-걸리는-시간-단축" class="headerlink" title="패킷 손실 감지에 걸리는 시간 단축"></a>패킷 손실 감지에 걸리는 시간 단축</h3><p>QUIC도 TCP와 마찬가지로 전송하는 패킷에 대한 흐름 제어를 해야한다. 왜냐면 QUIC든 TCP든 결국 본질적으로는 <code>ARQ</code> 방식을 사용하는 프로토콜이기 때문이다. 통신과정에서 발생한 에러를 어떻게 처리할 것인지를 이야기하는 것인데, ARQ 방식은 에러가 발생하면 재전송을 통해 에러를 복구하는 방식을 말하는 것이다.</p>
 <p>TCP는 여러 ARQ 방식 중에서 <code>Stop and Wait ARQ</code> 방식을 사용하고 있다. 이 방식은 송신 측이 패킷을 보낸 후 타이머를 사용하여 시간을 재고, 일정 시간이 경과해도 수신 측이 적절한 답변을 주지 않는다면 패킷이 손실된 것으로 판단하고 해당 패킷을 다시 보내는 방식이다.</p>
 <p>우선 2017년 구글에서 발표한 <a href="https://datatracker.ietf.org/doc/draft-ietf-quic-recovery/?include_text=1" rel="external nofollow noopener noreferrer" target="_blank">QUIC Loss Detection and Congestion Control</a>에 따르면, QUIC은 기본적으로 TCP와 유사한 방법으로 패킷 손실을 탐지하나, 몇 가지 개선 사항을 추가한 것으로 보인다.</p>
-<p>TCP에서 패킷 손실 감지에 대한 대표적인 문제는 송신 측이 패킷을 수신측으로 보내고 난 후 얼마나 기다려줄 것인가, 즉 타임 아웃을 언제 낼 것인가를 동적으로 계산해야한다는 것이다. 이때 이 시간을 <code>RTT(Retransmission Time Out)</code>이라고 하는데, 이때 필요한 데이터가 바로 <code>RTT(Round Trip Time)</code>들의 샘플들이다.</p>
+<p>TCP에서 패킷 손실 감지에 대한 대표적인 문제는 송신 측이 패킷을 수신측으로 보내고 난 후 얼마나 기다려줄 것인가, 즉 타임 아웃을 언제 낼 것인가를 동적으로 계산해야한다는 것이다. 이때 이 시간을 <code>RTO(Retransmission Time Out)</code>라고 하는데, 이때 필요한 데이터가 바로 <code>RTT(Round Trip Time)</code>들의 샘플들이다.</p>
 <p>한번 패킷을 보낸 후 잘 받았다는 응답을 받을 때 걸렸던 시간들을 측정해서 동적으로 타임 아웃을 정하는 것이다. 즉, RTT 샘플을 측정하기 위해서는 반드시 송신 측으로 부터 ACK를 받아야하는데, 정상적인 상황에서는 딱히 문제가 없으나 타임 아웃이 발생해서 패킷 손실이 발생하게 되면 RTT 계산이 애매해진다.</p>
 <blockquote>
 <p>패킷 전송 -&gt; 타임 아웃 -&gt; 패킷 재전송 -&gt; ACK 받음!<br><small>(근데 이거 첫 번째로 보낸 패킷의 ACK야? 두 번째로 보낸 패킷의 ACK야?)</small></p>

@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2019/10/08/what-is-http3/</loc>
+        <lastmod>2019-11-03T06:50:01.187Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2019/10/30/make-simple-with-math/</loc>
         <lastmod>2019-10-31T02:23:13.316Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -26,14 +34,6 @@
     <url>
         <loc>https://evan-moon.github.io/2019/10/27/inheritance-with-prototype/</loc>
         <lastmod>2019-10-27T02:30:17.619Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/2019/10/08/what-is-http3/</loc>
-        <lastmod>2019-10-25T13:21:01.718Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
