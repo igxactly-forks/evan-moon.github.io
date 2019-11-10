@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/10/header-of-tcp/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-10T09:48:40.347Z">
+<meta property="og:updated_time" content="2019-11-10T10:25:25.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?">
 <meta name="twitter:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
@@ -251,19 +251,16 @@
 <p>TCP는 여러 개의 필드로 나누어진 <code>20 bytes</code>, 즉 <code>160 bits</code>의 헤더를 사용하며, 각 필드의 비트를 0 또는 1로 변경하여 전송하고자 하는 세그먼트의 정보를 나타낸다.</p>
 <p>하지만 이 <code>20 bytes</code>라는 것은 아무 옵션도 없는 기본적인 헤더일 때의 용량이고, TCP의 여러가지 옵션들을 사용하면 헤더 맨 뒤에 옵션 필드들이 추가로 붙기 때문에 최대 <code>40 bytes</code>가 더해진 <code>60 bytes</code>까지도 사용할 수도 있다.</p>
 <p>그럼 이 그림에 표기된 순서대로 각 필드가 어떤 정보를 담고 있는지 한번 살펴보도록 하자.</p>
-<p><strong>Source port (16 bits), Destination port (16 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-source-destination.png"><br>  <br><br></center>
+<h3 id="Source-port-Destination-port"><a href="#Source-port-Destination-port" class="headerlink" title="Source port, Destination port"></a>Source port, Destination port</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-source-destination.png"><br>  <br><br></center>
 
 <p>이 필드들은 세그먼트의 출발지와 목적지를 나타내는 필드로, 각각 16 bits 를 할당받는다. 이때 출발지와 목적지의 주소를 판별하기 위해서는 <code>IP 주소</code>와 <code>포트 번호</code>가 필요하다.</p>
 <p>IP 주소는 당연히 한 계층 밑인 네트워크 계층에 있는 IP의 헤더에 담기기 때문에, TCP 헤더에는 IP 주소를 나타내는 필드가 없고 포트를 나타내는 필드만 존재한다.</p>
-<p><strong>Sequence Number (32 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-sequence.png"><br>  <br><br></center>
+<h3 id="Sequence-Number"><a href="#Sequence-Number" class="headerlink" title="Sequence Number"></a>Sequence Number</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-sequence.png"><br>  <br><br></center>
 
 <p>시퀀스 번호는 전송하는 데이터의 순서를 의미하며, 32 bits를 할당받는다. 최대 <code>4,294,967,296</code> 까지의 수를 담을 수 있기 때문에 시퀀스 번호가 그리 쉽게 중복되지는 않는다.</p>
 <p>이 시퀀스 번호 덕분에, 수신자는 쪼개진 세그먼트의 순서를 파악하여 올바른 순서로 데이터를 재조립할 수 있게 된다.</p>
 <p>송신자가 최초로 데이터를 전송할 때는 이 번호를 랜덤한 수로 초기화 하며, 이후 자신이 보낼 데이터의 1 bytes당 시퀀스 번호를 1씩 증가시키며 데이터의 순서를 표현하다 <code>4,294,967,296</code>를 넘어갈 경우 다시 0부터 시작한다.</p>
-<p><strong>Acknowledgment Number (32 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-ack.png"><br>  <br><br></center>
+<h3 id="Acknowledgment-Number"><a href="#Acknowledgment-Number" class="headerlink" title="Acknowledgment Number"></a>Acknowledgment Number</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-ack.png"><br>  <br><br></center>
 
 <p>승인 번호는 데이터를 받은 수신자가 예상하는 다음 시퀀스 번호를 의미하며, 32 bits를 할당받는다.</p>
 <p>연결 설정과 연결 해제 때 발생하는 핸드쉐이크 과정에서는 <code>상대방이 보낸 시퀀스 번호 + 1</code>로 자신의 승인 번호를 만들어내지만, 실제로 데이터를 주고 받을 때는 <code>상대방이 보낸 시퀀스 번호 + 자신이 받은 데이터의 bytes</code>로 승인 번호를 만들어낸다.</p>
@@ -277,19 +274,16 @@
 <p>송신 측이 보낸 세그먼트를 보면 시퀀스 번호가 <code>seq 160:240</code>로 찍혀있고, 수신 측은 자신의 승인 번호로 콜론 뒤 쪽의 값을 사용하고 있다.</p>
 <p>이때 시퀀스 번호의 형식은 <code>n 이상:m 미만</code>의 범위를 나타낸다. 콜론 뒤쪽의 번호는 송신 측의 시퀀스 범위에 포함되지 않으므로 수신 측이 저 번호를 그대로 가져다 쓰는 것이다.</p>
 <p>즉, 승인 번호는 <code>다음에 보내줘야하는 데이터의 시작점</code>을 의미한다는 것을 알 수 있다.</p>
-<p><strong>Data Offset (4 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-data-offset.png"><br>  <br><br></center>
+<h3 id="Data-Offset"><a href="#Data-Offset" class="headerlink" title="Data Offset"></a>Data Offset</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-data-offset.png"><br>  <br><br></center>
 
 <p>데이터 오프셋 필드에는 전체 세그먼트 중에서 헤더가 아닌 <code>데이터</code>가 시작되는 위치가 어디부터인지를 표시한다.</p>
 <p>이 오프셋을 표기할 때는 <code>32비트 워드</code> 단위를 사용하며, 32 비트 체계에서의 <code>1 Word = 4 bytes</code>를 의미한다. 즉, 이 필드의 값에 4를 곱하면 세그먼트에서 헤더를 제외한 실제 데이터의 시작 위치를 알 수 있는 것이다.</p>
 <p>이 필드에 할당된 4 bits로 표현할 수 있는 값의 범위는 <code>0000 ~ 1111</code>, 즉 <code>0 ~ 15 Word</code>이므로 기본적으로 <code>0 ~ 60 bytes</code>의 오프셋까지 표현할 수 있다. 하지만 옵션 필드를 제외한 나머지 필드는 필수로 존재해야 하기 때문에 최소 값은 20 bytes, 즉 <code>5 Word</code>로 고정되어 있다.</p>
 <p>이 필드가 필요한 이유는, 밑에서 설명할 <code>옵션(Option)</code> 필드의 길이가 고정되어 있지 않기 때문이다.</p>
-<p><strong>Reserved (3 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-reserved.png"><br>  <br><br></center>
+<h3 id="Reserved-3-bits"><a href="#Reserved-3-bits" class="headerlink" title="Reserved (3 bits)"></a>Reserved (3 bits)</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-reserved.png"><br>  <br><br></center>
 
 <p>미래를 위해 예약된 필드로, 모두 <code>0</code>으로 채워져야 한다. 상단의 헤더 그림에도 그냥 <code>0 0 0</code>으로 찍혀있는 것을 확인해볼 수 있다.</p>
-<p><strong>Flags (NS ~ FIN, 9 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-flags.png"><br>  <br><br></center>
+<h3 id="Flags-NS-FIN"><a href="#Flags-NS-FIN" class="headerlink" title="Flags (NS ~ FIN)"></a>Flags (NS ~ FIN)</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-flags.png"><br>  <br><br></center>
 
 <p>9개의 비트 플래그이다. 이 플래그들은 현재 세그먼트의 속성을 나타낸다. 기존에는 6개의 플래그만을 사용했지만, 혼잡 제어 기능의 향상을 위해 <code>Reserved</code> 필드를 사용하여 <code>NS, CWR, ECE</code> 플래그가 추가되었다.</p>
 <p>먼저 기존에 존재하던 플래그들의 의미는 다음과 같다.</p>
@@ -353,13 +347,11 @@
 </tbody>
 </table>
 <p>ECN은 이 포스팅의 주제와는 또 다른 이야기이므로 궁금하신 분들은 MR.ZERO님의 <a href="https://mr-zero.tistory.com/20" rel="external nofollow noopener noreferrer" target="_blank">Explict Congestion Notification?</a> 블로그를 참고하길 바란다.</p>
-<p><strong>Window Size (16 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-window-size.png"><br>  <br><br></center>
+<h3 id="Window-Size"><a href="#Window-Size" class="headerlink" title="Window Size"></a>Window Size</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-window-size.png"><br>  <br><br></center>
 
 <p>윈도우 사이즈 필드에는 한번에 전송할 수 있는 데이터의 양을 의미하는 값을 담는다. $2^16 = 65535$ 만큼의 값을 표현할 수 있고 단위는 바이트이므로, 윈도우의 최대 크기는 <code>64KB</code>라는 말이 된다.</p>
-<p>하지만 이 최대 크기는 옛날 옛적에 생긴 기준이라 요즘같이 대용량 고속 통신 환경에는 맞지 않는 경우도 있다. 그래서 비트를 왼쪽으로 n번 시프트하는 방식으로 윈도우 사이즈의 최대 크기를 키울 수 있는 방식도 사용하고 있다.</p>
-<p><strong>Checksum (16 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-checksum.png"><br>  <br><br></center>
+<p>하지만 이 최대 크기는 옛날 옛적에 생긴 기준이라 요즘같이 대용량 고속 통신 환경에는 맞지 않는 경우도 있다. 그래서 비트를 왼쪽으로 시프트하는 방식으로 윈도우 사이즈의 최대 크기를 키울 수 있는 방식도 사용하고 있으며, 몇 번 시프트할 지는 옵션 필드의 <code>WSCALE</code> 필드를 사용하여 표기한다.</p>
+<h3 id="Checksum"><a href="#Checksum" class="headerlink" title="Checksum"></a>Checksum</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-checksum.png"><br>  <br><br></center>
 
 <p>체크섬은 데이터를 송신하는 중에 발생할 수 있는 오류를 검출하기 위한 값이다.</p>
 <p>TCP의 체크섬은 전송할 데이터를 16 Bits씩 나눠서 차례대로 더해가는 방법으로 생성한다. 방식은 단순하지만 16 bits의 덧셈을 그대로 보자니 숫자가 너무 길어질 것이 뻔하므로 간단하게 반토막인 8 bits로만 한번 해보도록 하겠다.</p>
@@ -373,15 +365,13 @@
 <p>수신 측은 데이터를 받으면 위의 과정을 동일하게 거치되 1의 보수를 취하지 않은 값인 <code>10001010</code>까지만 만든 다음, 이 값과 송신 측이 보낸 체크섬을 더해서 모든 비트가 1이라면 이 데이터가 정상이라고 판단할 수 있다.</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  10001010</span><br><span class="line">+ 01110101</span><br><span class="line">-----------</span><br><span class="line">  11111111</span><br></pre></td></tr></table></figure>
 <p>만약 이 값에 0이 하나라도 있으면 송신 측이 보낸 데이터에 뭔가 변조가 있었음을 알 수 있다.</p>
-<p><strong>Urgent Pointer (16 bits)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-urgent.png"><br>  <br><br></center>
+<h3 id="Urgent-Pointer"><a href="#Urgent-Pointer" class="headerlink" title="Urgent Pointer"></a>Urgent Pointer</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-urgent.png"><br>  <br><br></center>
 
 <p>말 그대로 긴급 포인터이다. URG 플래그가 1이라면 수신 측은 이 포인터가 가르키고 있는 데이터를 우선 처리한다.</p>
-<p><strong>Options (0 ~ 40 bytes)</strong></p>
-<center><br>  <img src="/2019/11/10/header-of-tcp/header-options.png"><br>  <br><br></center>
+<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-options.png"><br>  <br><br></center>
 
 <p>옵션 필드는 TCP의 기능을 확장할 때 사용하는 필드들이며, 이 필드는 크기가 고정된 것이 아니라 가변적이다. 그래서 수신 측이 어디까지가 헤더고 어디서부터 데이터인지 알기 위해 위에서 설명한 데이터 오프셋 필드를 사용하는 것이다.</p>
-<p>데이터 오프셋 필드는 <code>20 ~ 60 bytes</code>의 값을 표현할 수 있다고 했는데, 아무런 옵션도 사용하지 않은 헤더의 길이, 즉 Source Port 필드부터 Urgent Pointer 필드까지의 길이가 <code>20 bytes</code>이고, 옵션을 모두 사용했을 때 옵션 필드의 길이가 <code>40 bytes</code>이기 때문이다.</p>
+<p>데이터 오프셋 필드는 <code>20 ~ 60 bytes</code>의 값을 표현할 수 있다고 했는데, 아무런 옵션도 사용하지 않은 헤더의 길이, 즉 Source Port 필드부터 Urgent Pointer 필드까지의 길이가 <code>20 bytes</code>이고, 옵션을 모두 사용했을 때 옵션 필드의 최대 길이가 <code>40 bytes</code>이기 때문이다.</p>
 <p>만약 데이터 오프셋 필드의 값이 5, 즉 20 bytes보다 크지만 TCP의 옵션을 하나도 사용하고 있지 않다면, 초과한 bytes 만큼 이 필드를 0으로 채워줘야 수신 측이 헤더의 크기를 올바르게 측정할 수 있다.</p>
 <p>대표적인 옵션으로는 윈도우 사이즈의 최대 값 표현을 확장할 수 있는 <code>WSCALE</code>, Selective Repeat 방식을 사용하기 위한 <code>SACK</code> 등이 있으며, 이외에도 거의 30개 정도의 옵션을 사용할 수 있기 때문에 이 친구들을 하나하나 설명하는 것은 조금 힘들 것 같다.</p>
 <h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>이렇게 간략한 TCP의 개요와 헤더 구조에 대해서 알아보았다. 사실 이 내용들은 TCP라는 놈의 껍데기 한 겹 정도에 불과한 내용이지만, 이게 거의 50년 묵은 프로토콜이다보니 포스팅 하나로 정리하기에는 내용이 굉장히 방대하다.</p>
@@ -480,7 +470,47 @@
         <a class="is-flex" href="#TCP의-헤더를-까보자" data-link-name="toc">
         <span class="has-mr-6">3</span>
         <span>TCP의 헤더를 까보자</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Source-port-Destination-port" data-link-name="toc">
+        <span class="has-mr-6">3.1</span>
+        <span>Source port, Destination port</span>
         </a></li><li>
+        <a class="is-flex" href="#Sequence-Number" data-link-name="toc">
+        <span class="has-mr-6">3.2</span>
+        <span>Sequence Number</span>
+        </a></li><li>
+        <a class="is-flex" href="#Acknowledgment-Number" data-link-name="toc">
+        <span class="has-mr-6">3.3</span>
+        <span>Acknowledgment Number</span>
+        </a></li><li>
+        <a class="is-flex" href="#Data-Offset" data-link-name="toc">
+        <span class="has-mr-6">3.4</span>
+        <span>Data Offset</span>
+        </a></li><li>
+        <a class="is-flex" href="#Reserved-3-bits" data-link-name="toc">
+        <span class="has-mr-6">3.5</span>
+        <span>Reserved (3 bits)</span>
+        </a></li><li>
+        <a class="is-flex" href="#Flags-NS-FIN" data-link-name="toc">
+        <span class="has-mr-6">3.6</span>
+        <span>Flags (NS ~ FIN)</span>
+        </a></li><li>
+        <a class="is-flex" href="#Window-Size" data-link-name="toc">
+        <span class="has-mr-6">3.7</span>
+        <span>Window Size</span>
+        </a></li><li>
+        <a class="is-flex" href="#Checksum" data-link-name="toc">
+        <span class="has-mr-6">3.8</span>
+        <span>Checksum</span>
+        </a></li><li>
+        <a class="is-flex" href="#Urgent-Pointer" data-link-name="toc">
+        <span class="has-mr-6">3.9</span>
+        <span>Urgent Pointer</span>
+        </a></li><li>
+        <a class="is-flex" href="#Options" data-link-name="toc">
+        <span class="has-mr-6">3.10</span>
+        <span>Options</span>
+        </a></li></ul></li><li>
         <a class="is-flex" href="#마치며" data-link-name="toc">
         <span class="has-mr-6">4</span>
         <span>마치며</span>
