@@ -16,7 +16,7 @@
 <meta property="og:description" content="HTTP/3는 HTTP(Hypertext Transfer Protocol)의 세 번째 메이저 버전으로, 기존의 HTTP/1, HTTP/2와는 다르게 UDP 기반의 프로토콜인 QUIC을 사용하여 통신하는 프로토콜이다. HTTP/3와 기존 HTTP 들과 가장 큰 차이점이라면 TCP가 아닌 UDP 기반의 통신을 한다는 것이다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/10/08/what-is-http3/thumbnail.jpg">
-<meta property="og:updated_time" content="2019-11-03T06:50:01.187Z">
+<meta property="og:updated_time" content="2019-11-07T03:16:49.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP&#x2F;3는 왜 UDP를 선택한 것일까?">
 <meta name="twitter:description" content="HTTP/3는 HTTP(Hypertext Transfer Protocol)의 세 번째 메이저 버전으로, 기존의 HTTP/1, HTTP/2와는 다르게 UDP 기반의 프로토콜인 QUIC을 사용하여 통신하는 프로토콜이다. HTTP/3와 기존 HTTP 들과 가장 큰 차이점이라면 TCP가 아닌 UDP 기반의 통신을 한다는 것이다.">
@@ -275,7 +275,7 @@
 <p>이때 통신을 시작할 때 거치는 과정을 <code>3 Way Handshake</code>, 통신을 마칠 때 거치는 과정을 <code>4 Way Handshake</code>라고 한다. 이 포스팅의 목적은 이 과정을 자세히 다루는 것이 아니므로, TCP를 사용하여 통신을 시작할 때 거치는 과정인 3 Way Handshake가 어떤 원리로 작동하는지만 설명하겠다.</p>
 <center><br>  <img src="/2019/10/08/what-is-http3/3way-handshake.png" width="500"><br>  <small>통신을 시작할 때 3 Way Handshake를 하는 과정</small><br>  <br><br></center>
 
-<p>위 그림을 보면 클라이언트가 처음 서버와 통신을 하기 위해 TCP 연결을 생성할 때 <code>SYN</code>와 <code>ACK</code>이라는 값을 주고 받고 있다. 이 값들을 사용하여 클라이언트와 서버가 서로 보낸 패킷의 순서와 패킷을 제대로 받았는 지를 확인할 수 있는 것이다.</p>
+<p>위 그림을 보면 클라이언트가 처음 서버와 통신을 하기 위해 TCP 연결을 생성할 때 <code>SYN</code>와 <code>ACK</code>이라는 패킷을 주고 받고 있다. 이 패킷 내부에 들어있는 값들을 사용하여 클라이언트와 서버가 서로 보낸 패킷의 순서와 패킷을 제대로 받았는 지를 확인할 수 있는 것이다.</p>
 <p>그리고 이 과정에는 총 3번의 통신이 필요하다. OSX나 Linux를 사용하고 있는 분이라면 터미널에서 <code>tcpdump</code> 유틸리티를 사용하여 이 과정을 직접 눈으로 확인해볼 수 있다.</p>
 <p>단, <code>tcpdump</code>를 아무 옵션 없이 사용하면 디바이스의 모든 패킷을 감시하고 출력하기 때문에 원하는 정보를 찾기 힘들다. 그래서 필자는 루프백에서 동작하고 있는 블로그 서버와의 통신만 캡쳐해보았다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tcpdump host localhost -i lo0</span><br><span class="line">IP localhost.53920 &gt; localhost.terabase: Flags [S], seq 1260460927, win 65535</span><br><span class="line">IP localhost.terabase &gt; localhost.53920: Flags [S.], seq 3009967847, ack 1260460928, win 65535</span><br><span class="line">IP localhost.53920 &gt; localhost.terabase: Flags [.], ack 3009967848, win 6379</span><br></pre></td></tr></table></figure>
@@ -560,7 +560,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">37</span>
+                <span class="level-item tag">38</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -624,7 +624,7 @@
                 <span class="level-item">Network</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/web/" data-link-name="category">
