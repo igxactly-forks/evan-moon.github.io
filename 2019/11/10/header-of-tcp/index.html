@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/10/header-of-tcp/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-10T10:25:25.241Z">
+<meta property="og:updated_time" content="2019-11-11T15:59:03.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?">
 <meta name="twitter:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
@@ -238,7 +238,7 @@
 <p>이후 몇 개의 대학과 군에서만 사용되던 알파넷이 대중들에게 공개되고 전 세계적으로 연결되며 인터넷으로 발전하게 되었고, 덩달아 알파넷의 통신 프로토콜이었던 TCP도 함께 떡상하게 된 것이다.</p>
 <h3 id="패킷-교환-방식의-문제점"><a href="#패킷-교환-방식의-문제점" class="headerlink" title="패킷 교환 방식의 문제점"></a>패킷 교환 방식의 문제점</h3><p>하지만 패킷 교환 방식도 당연히 만능이 아니기에, 몇 가지 문제가 있었다. 우리가 TCP를 공부할 때 함께 따라오는 ARQ나 SYN, ACK 등의 개념들이 바로 이런 문제들을 해결하기 위해 과거의 엔지니어들이 머리를 싸맨 결과인 것이다.</p>
 <blockquote><p>Q: 전송 중간에 패킷이 쥐도새도 모르게 사라지거나 훼손되면 어떡해요?<br>A: <strong>그럼 그 패킷만 다시 보내라고 해!(ARQ)</strong></p>
-<p>Q: 송신 측이 패킷을 쪼갠 순서를 알아야 수신 측이 재조립할 수 있겠는데요?<br>A: <strong>그럼 순서번호를 패킷이랑 같이 보내!(SYN)</strong></p>
+<p>Q: 송신 측이 패킷을 쪼갠 순서를 알아야 수신 측이 재조립할 수 있겠는데요?<br>A: <strong>그럼 순서번호를 패킷이랑 같이 보내!(시퀀스 번호)</strong></p>
 <p>Q: 수신 측이 처리할 수 있는 속도보다 송신 측이 패킷을 빠르게 보내버리면 어떡하죠?<br>A: <strong>그럼 수신 측이 처리할 수 있는 양을 송신 측에 알려주고 그 만큼만 보내라고 해! (슬라이딩 윈도우)</strong></p>
 </blockquote>
 <p>TCP가지고 있는 많은 기능과 개념들은 마냥 글로만 봤을 땐 복잡해보이고 뭔가 외울 것도 많아보이지만, 당시 상황을 생각해보면 반드시 필요한 것들이었음을 알 수 있다.</p>
@@ -349,7 +349,7 @@
 <p>ECN은 이 포스팅의 주제와는 또 다른 이야기이므로 궁금하신 분들은 MR.ZERO님의 <a href="https://mr-zero.tistory.com/20" rel="external nofollow noopener noreferrer" target="_blank">Explict Congestion Notification?</a> 블로그를 참고하길 바란다.</p>
 <h3 id="Window-Size"><a href="#Window-Size" class="headerlink" title="Window Size"></a>Window Size</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-window-size.png"><br>  <br><br></center>
 
-<p>윈도우 사이즈 필드에는 한번에 전송할 수 있는 데이터의 양을 의미하는 값을 담는다. $2^16 = 65535$ 만큼의 값을 표현할 수 있고 단위는 바이트이므로, 윈도우의 최대 크기는 <code>64KB</code>라는 말이 된다.</p>
+<p>윈도우 사이즈 필드에는 한번에 전송할 수 있는 데이터의 양을 의미하는 값을 담는다. $2^{16} = 65535$ 만큼의 값을 표현할 수 있고 단위는 바이트이므로, 윈도우의 최대 크기는 <code>64KB</code>라는 말이 된다.</p>
 <p>하지만 이 최대 크기는 옛날 옛적에 생긴 기준이라 요즘같이 대용량 고속 통신 환경에는 맞지 않는 경우도 있다. 그래서 비트를 왼쪽으로 시프트하는 방식으로 윈도우 사이즈의 최대 크기를 키울 수 있는 방식도 사용하고 있으며, 몇 번 시프트할 지는 옵션 필드의 <code>WSCALE</code> 필드를 사용하여 표기한다.</p>
 <h3 id="Checksum"><a href="#Checksum" class="headerlink" title="Checksum"></a>Checksum</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-checksum.png"><br>  <br><br></center>
 
