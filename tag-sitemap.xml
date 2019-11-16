@@ -3,43 +3,64 @@
 
 
     <url>
+        <loc>https://evan-moon.github.io/tags/%EB%A9%B4%EC%A0%91/</loc>
+        <lastmod>2019-11-16T08:22:38.001Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EB%B6%88%EC%95%88%EC%9A%94%EC%86%8C-%EB%A7%88%EC%A3%BC%EB%B3%B4%EA%B8%B0/</loc>
+        <lastmod>2019-11-16T08:22:38.001Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EB%B6%88%EC%95%88%EA%B0%90/</loc>
+        <lastmod>2019-11-16T08:22:38.001Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/tags/ack/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://evan-moon.github.io/tags/syn/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://evan-moon.github.io/tags/tcp-%ED%94%8C%EB%9E%98%EA%B7%B8/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://evan-moon.github.io/tags/ecn/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://evan-moon.github.io/tags/%ED%97%A4%EB%8D%94/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://evan-moon.github.io/tags/tcp/</loc>
-        <lastmod>2019-11-11T15:59:03.694Z</lastmod>
+        <lastmod>2019-11-16T06:26:15.542Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

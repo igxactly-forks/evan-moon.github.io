@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/10/header-of-tcp/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-11T15:59:03.694Z">
+<meta property="og:updated_time" content="2019-11-16T06:26:15.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?">
 <meta name="twitter:description" content="저번에 HTTP/3는 왜 UDP를 선택한 것일까? 포스팅을 진행하며 TCP에 대해 간단한 언급을 했었지만, 해당 포스팅에서는 기존의 HTTP에서 사용하던 TCP에 어떤 문제가 있었는지에 집중해서 이야기했었지만 이번에는 TCP 자체에 조금 더 집중해서 이야기해보려고 한다.">
@@ -216,7 +216,7 @@
 
 <p>이때 우리에게 친숙한 <code>HTTP</code>, <code>SMTP</code>, <code>FTP</code>와 같은 프로토콜 친구들이 가장 높은 계층인 응용 계층에 위치한다. 그에 비해 더 낮은 계층에 존재하는 <code>TCP</code>, <code>UDP</code>, <code>IP</code> 같은 프로토콜들은 상대적으로 접할 일이 많이 없기는 하다.</p>
 <p>이런 프로토콜들은 대부분 OS에서 알아서 처리해주기 때문에 상위 계층에서 프로그래밍을 하는 개발자가 굳이 여기서 일어나는 일까지 하나하나 신경쓸 필요가 없기 떄문이다.</p>
-<p>애초에 이런 레이어 모델들이 존재하는 이유 중에 이거다. 애초에 네트워크라는 것이 수많은 기술의 집약체인 만큼 한 명의 개발자가 모든 것을 다 알기는 힘들다. 그래서 각 계층 간 철저한 역할 분담을 통해 어떤 작업을 할 때 신경써야하는 범위를 좁혀주는 것이다.</p>
+<p>애초에 이게 레이어 모델이 존재하는 이유 중 하나이다. 네트워크라는 것이 수많은 기술의 집약체인 만큼 한 명의 개발자가 모든 것을 다 알기는 힘들다. 그래서 각 계층 간 철저한 역할 분담을 통해 어떤 작업을 할 때 신경써야하는 범위를 좁혀주는 것이다.</p>
 <p>덕분에 우리는 HTTP를 사용할 때 DNS는 어디를 사용할지, 패킷은 어떻게 처리할지 등 여러 가지 작업을 한번에 신경쓸 필요가 없다.</p>
 <p>하지만 아무리 레이어가 나누어져 있다고 한들 하위 레이어에서 일어나는 일을 전혀 모르고 있다면, 어플리케이션 레이어에서는 아무 문제 없지만 하위 레이어에서 문제가 발생했을 때 전혀 손도 못 대는 케이스도 발생할 수 있다.</p>
 <p>이런 이유로 자신이 사용하고 있는 프로토콜의 대략적인 작동 원리와 개요 정도는 알고 있으면 좋다고 생각하기 때문에, 이번 포스팅을 작성하며 그 동안 대략적인 몇 가지 특징으로만 알고 있던 TCP를 조금 뜯어보려고 한다.</p>
@@ -418,7 +418,13 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-item card to-home">
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2019/11/16/the-way-to-control-anxiety/">
+                <i class="fas fa-chevron-left"></i> 불안한 마음 정면으로 마주보기
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
@@ -534,7 +540,7 @@
                 <span class="level-item">Essay</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">9</span>
+                <span class="level-item tag">10</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/" data-link-name="category">
