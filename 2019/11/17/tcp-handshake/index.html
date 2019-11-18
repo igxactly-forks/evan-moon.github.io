@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/17/tcp-handshake/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-17T10:57:11.636Z">
+<meta property="og:updated_time" content="2019-11-18T01:05:41.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP가 연결을 생성하고 종료하는 방법, 핸드쉐이크">
 <meta name="twitter:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
@@ -228,7 +228,7 @@
 <p>그렇다는 것은 각 종단이 동시다발적으로 여러 기기들과 패킷을 주고 받고 있다는 의미인데, 이때 <code>누가 보낸 몇 번째 패킷</code>이라는 정보가 없다면 수신 측은 굉장히 혼란스러울 것이다.</p>
 <center><br>  <img src="/2019/11/17/tcp-handshake/pipes.png" width="500"><br>  <small>연결 상태가 없는 패킷을 구분한다는 것은 한 양동이에 담긴 물을 구분하고 싶다는 말과 같다</small><br>  <br><br></center>
 
-<p>위 그림에서 파이프는 물리적인 연결, 각 파이프의 종단은 포트, 양동이는 패킷을 처리할 프로세스를 의미한다. 이때 연결 상태에 대한 구분을 하지 않고 패킷을 구분하고 싶다는 것은 마치 한 양동이에 담긴 물 중에서 어떤 한 파이프 구멍에서 나온 물 만을 구분해내고 싶다는 말과 비슷하다.</p>
+<p>위 그림에서 파이프는 물리적인 연결, 각 파이프 끝의 구멍은 포트, 양동이는 패킷을 처리할 프로세스라고 생각해보자. 이때 연결 상태에 대한 구분을 하지 않고 패킷을 구분하고 싶다는 것은 마치 한 양동이에 담긴 물 중에서 어떤 한 파이프 구멍에서 나온 물을 구분해내고 싶다는 말과 비슷하다.</p>
 <p>그렇기 때문에 TCP는 <code>A와 B의 연결 상태</code>, <code>A와 C의 연결 상태</code> 등 각 기기간의 연결 상태를 따로 구분하고 있는 것이다. 이때 TCP는 상대방과 연결 상태를 만들거나 해제하기 위해 특별한 과정을 거치는데, 이 과정을 <code>핸드쉐이크(Handshake)</code>라고 한다.</p>
 <h2 id="3-Way-Handshake"><a href="#3-Way-Handshake" class="headerlink" title="3 Way Handshake"></a>3 Way Handshake</h2><p>먼저, 연결을 만드는 과정부터 살펴보도록 하자. 연결을 생성할 때 거치는 핸드쉐이크 과정을 <code>3 Way Handshake</code>라고 하는데, 3 Way라는 말 그대로 총 3번의 통신 과정을 거친다.</p>
 <p>이 과정을 거치면서 통신을 하는 양 종단은 내가 누구랑 통신하고 있는지, 내가 받아야할 데이터의 시퀀스 번호가 몇 번인지와 같은 정보를 주고 받으면서 연결 상태를 생성하게 된다.</p>
@@ -256,6 +256,8 @@
 
 <p><code>SYN_RECV</code>는 요청자가 보낸 SYN 패킷을 수신자가 제대로 받은 상태를 의미한다.</p>
 <p>이후 수신자는 제대로 된 시퀀스 번호를 받았다는 확인의 의미인 <code>승인 번호(Acknowledgement)</code> 값을 만들어서 다시 요청자에게 돌려줘야한다. 이때 승인 번호는 처음 <code>요청자가 보낸 시퀀스 번호 + 1</code>이 된다.</p>
+<p>이 승인 번호 만드는 과정은 어렵게 생각할 필요가 없는게, 저번 포스팅에서 이야기했듯이 TCP를 사용하여 실제로 데이터를 주고 받을 때에는 <code>상대방이 보낸 시퀀스 번호 + 상대방이 보낸 데이터의 byte</code>를 합쳐서 승인 번호를 만들어낸다. 즉, 내가 여기까지 받았으니, 다음에는 여기부터 보내달라는 일종의 마킹인 것이다.</p>
+<p>그러나 이런 핸드쉐이크 과정에서는 아직 데이터를 주고 받지 않기 때문에 시퀀스 번호에 더할게 없다. 그렇다고해서 시퀀스 번호를 같은 번호로 주고 받자니 패킷의 순서를 구분할 수 없지 않은가? 그래서 그냥 1을 더하는 것이다.</p>
 <p>방금 전과 마찬가지로 tcpdump 유틸리티를 사용하여 이 과정을 확인해볼 수 있다.</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost.receiver &gt; localhost.initiator: Flags [S.], seq 435597555, ack 3414207245, win 65535</span><br></pre></td></tr></table></figure>
 <p>수신자가 요청자에게 보내는 패킷을 캡처해보았더니 패킷의 플래그가 <code>S.</code>로 설정되어있다. 이때 <code>.</code>가 의미하는 것은 헤더의 <code>ACK</code> 플래그 필드가 1이라는 것이므로 이 패킷에는 유효한 승인 번호가 담겨있음을 알 수 있다.</p>
@@ -278,8 +280,7 @@
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo tcpdump -S</span><br><span class="line">localhost.initiator &gt; localhost.receiver: Flags [.], ack 435597556, win 6379</span><br></pre></td></tr></table></figure>
 <h3 id="ESTABLISHED-수신자"><a href="#ESTABLISHED-수신자" class="headerlink" title="ESTABLISHED(수신자)"></a>ESTABLISHED(수신자)</h3><center><br>  <img src="/2019/11/17/tcp-handshake/3way-established-server.png" width="400"><br>  <br><br></center>
 
-<p>수신자는 자신이 만들어서 보냈던 시퀀스 번호만 알고 있는 상황이다. 요청자와 마찬가지로 수신자 또한 자신이 보냈던 시퀀스 번호와 이번에 받은 승인 번호의 차가 1이라면 제대로 연결이 되었다고 판단하고 <code>ESTABLISHED</code> 상태로 들어가게된다.</p>
-<p>여기까지 오면 요청자와 수신자는 안전하고 신뢰성있는 연결이 생성되었다고 판단하고 본격적인 통신을 시작할 수 있다.</p>
+<p>요청자와 마찬가지로 수신자 또한 자신이 보냈던 시퀀스 번호와 이번에 받은 승인 번호의 차가 1이라면 제대로 연결이 되었다고 판단하고 <code>ESTABLISHED</code> 상태로 들어가게된다. 여기까지 오면 요청자와 수신자는 안전하고 신뢰성있는 연결이 생성되었다고 판단하고 본격적인 통신을 시작할 수 있다.</p>
 <h2 id="4-Way-Handshake"><a href="#4-Way-Handshake" class="headerlink" title="4 Way Handshake"></a>4 Way Handshake</h2><p>연결을 생성할 때와 마찬가지로, 연결을 종료할 때도 특정한 과정을 거쳐서 연결을 종료해야한다.</p>
 <p>그냥 연결을 끊어버리면 안되냐고 할 수도 있지만, 한 쪽에서 일방적으로 연결을 끊어버리면 다른 한 쪽은 연결이 끊어졌는지 지속되고 있는지 알 방법이 없다.</p>
 <p>또한 연결을 종료하기 전에 아직 다 처리하지 못한 데이터가 있을 수도 있기 때문에 양 쪽이 다 정상적으로 연결을 종료할 준비가 되었는 지를 확인하는 과정이 필요한 것이다.</p>
@@ -289,22 +290,32 @@
 <p>이번에도 <code>요청자(Initiator)</code>와 <code>수신자(Receiver)</code>라는 용어를 사용하고 있는데, 3 Way Handshake와 마찬가지로 클라이언트와 서버, 둘 중에 어느 쪽이든 연결 종료 요청을 시작할 수 있기 때문에 이런 용어를 사용하는 것이다.</p>
 <p>먼저 연결 생성 요청을 했던 쪽이 먼저 연결 종료 요청을 보낼 수도 있고, 반대로 처음에는 연결 생성 요청을 당했던 쪽이 이번에는 먼저 연결 종료 요청을 보낼 수도 있다.</p>
 <p>사실 개발자들은 3 Way Handshake보다 연결을 종료하는 과정인 4 Way Handshake에 더 예민하게 반응할 수 밖에 없는데, 연결을 생성하는 과정에서 문제가 발생하여 연결이 생성되지 않는다면 다시 시도하면 그만이지만, 이미 생성된 연결을 종료하는 과정인 4 Way Handshake에서 문제가 발생하면 그대로 연결이 남아있기 때문이다.</p>
-<p>게다가 4 Way Handshake는 3 Way Handshake처럼 순차적으로 주고받는 방식이 아니라 일방적으로 한 쪽이 기다리고만 있어야하는 과정이 포함되어있기 때문에 중간에 뭐 하나 엇나가면 이 상태로 계속 대기만 하고 있는 <code>데드락(Deadlock)</code> 상황이 연출될 수도 있다.</p>
-<p>물론 조건에 따라 일정 시간이 지나면 타임아웃이 되며 연결을 강제로 종료하기는 하지만 그래도 그 시간 동안 프로세스가 메모리와 포트를 점유하고 있으므로 트래픽이 많은 서버라면 이로 인해 병목이 발생할 가능성이 생긴다.</p>
+<p>게다가 4 Way Handshake는 3 Way Handshake처럼 순차적으로 주고받는 방식이 아니라 상대방이 응답을 줄 때까지 대기하는 과정이 포함되어있기 때문에 중간에 뭐 하나 엇나가면 서로 계속 대기만 하고 있는 <code>데드락(Deadlock)</code> 상황이 연출될 수도 있다.</p>
+<p>물론 조건에 따라 일정 시간이 지나면 타임아웃이 되며 연결을 강제로 종료하거나 다음 단계로 넘어갈 수도 있지만 그래도 그 시간 동안 프로세스가 메모리와 포트를 점유하고 있으므로 트래픽이 많은 서버라면 이로 인해 병목이 발생할 가능성은 늘 있다.</p>
 <h3 id="FIN-WAIT-1"><a href="#FIN-WAIT-1" class="headerlink" title="FIN_WAIT_1"></a>FIN_WAIT_1</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-finwait1.png" width="400"><br>  <br><br></center>
 
-<p>먼저 연결을 종료하고자 하는 요청자가 FIN 패킷을 상대방에게 보내면서 <code>FIN_WAIT1</code> 상태로 들어서게 된다. 이때 FIN 패킷에는 랜덤한 수로 생성된 <code>시퀀스 번호</code>를 담아서 보낸다.</p>
-<p>이 패킷의 의미를 쉽게 얘기해보자면 “나 더 이상 할 말 없음” 정도이다. 이때 요청자가 먼저 적극적으로 연결 종료 요청을 보내는 것이기 때문에 요청자를 <code>Active Closer</code>, 이 상태를 <code>능동 폐쇄(Active Close)</code>라고 한다.</p>
+<p>먼저 연결을 종료하고자 하는 요청자가 FIN 패킷을 상대방에게 보내면서 <code>FIN_WAIT1</code> 상태로 들어서게 된다.</p>
+<p>이때 FIN 패킷에도 시퀀스 번호가 포함되어있긴 한데 3 Way Handshake 때와 다르게 이번에는 시퀀스 번호를 새롭게 정의할 필요가 없으므로, 그냥 자신이 이번에 보내야할 순서에 맞는 시퀀스 번호를 그대로 사용한다.</p>
+<blockquote><ul>
+<li>요청자 —<strong>SEQ: 1</strong>—&gt; 수신자</li>
+<li>요청자 &lt;—<strong>ACK: 2</strong>— 수신자</li>
+<li>요청자 —<strong>FIN: 2</strong>—&gt; 수신자</li>
+</ul>
+</blockquote>
+<p>즉, FIN 플래그만 1로 변경해서 보낸다고 생각하는 게 편하다. 이 플래그의 의미를 쉽게 얘기해보자면 “나 더 이상 할 말 없음” 정도이다.</p>
+<p>이때 요청자가 먼저 적극적으로 연결 종료 요청을 보내는 것이기 때문에 요청자를 <code>Active Closer</code>, 이 상태를 <code>능동 폐쇄(Active Close)</code>라고 한다.</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost.initiator &gt; localhost.receiver: Flags [F.], seq 701384376, ack 4101704148, win 6378</span><br></pre></td></tr></table></figure>
-<p>하지만 tcpdump를 사용해서 요청자가 수신자에게 보낸 연결 종료 요청 패킷을 보면 <code>F</code> 플래그가 아니라 <code>FIN+ACK</code>를 의미하는 <code>F.</code> 플래그가 설정되어있다.</p>
-<p>이 FIN 패킷에 묻어서 같이 보내지고 있는 승인 번호는 뭘 의미하는 걸까?</p>
-<h4 id="Half-Close-기법"><a href="#Half-Close-기법" class="headerlink" title="Half-Close 기법"></a>Half-Close 기법</h4><p>그 이유는 사실 필자가 예제 TCP 어플리케이션을 작성할 때 연결을 종료하는 함수로 <code>close()</code> 함수가 아니라 <code>shutdown()</code> 함수를 사용했기 때문이다.</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown(sockfd, SHUT_WR);</span><br></pre></td></tr></table></figure>
-<p><code>shutdown()</code> 함수는 <code>Half-Close</code>라는 기법을 지원하는데, 말 그대로 연결을 완전 종료하는 것이 아니라 반만 닫는 것이다.</p>
+<p>하지만 요청자가 수신자에게 보낸 연결 종료 요청 패킷을 캡처해보니 <code>F</code> 플래그가 아니라 <code>FIN+ACK</code>를 의미하는 <code>F.</code> 플래그가 설정되어있다. tcpdump를 사용하여 패킷을 캡처한 다른 블로그를 봐도 대부분 필자와 같은 상황을 겪고 있음을 알 수 있었다.</p>
+<p>분명 이론적으로는 FIN 패킷을 보내야하는데 왜 승인 번호를 함께 묶어서 FIN+ACK로 보내고 있는 것일까?</p>
+<h4 id="Half-Close-기법"><a href="#Half-Close-기법" class="headerlink" title="Half-Close 기법"></a>Half-Close 기법</h4><p>요청자가 FIN+ACK 패킷을 보내는 이유는 바로 <code>Half-Close</code>라는 기법을 사용하고 있기 때문이다. Half-Close 기법은 말 그대로 연결을 종료하려고 할 때 완전히 종료하는 것이 아니라 반만 종료하는 것이다.</p>
 <p><code>Half-Close</code>를 사용하면 요청자가 처음 보내는 FIN 패킷에 승인 번호를 함께 담아서 보내게 되는데, 이때 이 승인 번호의 의미는 “일단 연결은 종료할 건데 귀는 열어둔다. 이 승인 번호까지 처리했으니까 마저 보낼 거 있으면 보내”라는 의미가 된다.</p>
+<p>즉, 반만 닫겠다는 말의 의미는 연결을 종료할 때 전송 스트림과 수신 스트림 중 하나만 우선 닫겠다는 것을 의미하는 것이다.</p>
+<p>이후 수신자는 미처 못 보낸 데이터가 있다면 열심히 보낼 것이고, 이에 요청자는 아직 살아있는 수신 스트림을 사용하여 데이터를 처리한 후 <code>ACK</code> 패킷을 응답으로 보낼 수 있다. 이후 수신자가 모든 데이터를 처리하고나면 다시 요청자에게 FIN 패킷을 보냄으로써 모든 데이터가 처리되었다는 신호를 보내준다.</p>
+<p>그럼 요청자는 그때 나머지 반을 닫으면서 조금 더 안전하게 연결하게 연결을 종료할 수 있는 것이다.</p>
+<p>소켓 프로그래밍을 할 때 연결 종료 함수로 <code>close()</code>와 <code>shutdown()</code>을 사용할 수 있는데, 이때 <code>shutdown()</code> 함수를 사용하면 Half-Close를 사용할 수 있다.</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown(sockfd, SHUT_WR);</span><br></pre></td></tr></table></figure>
 <p>만약 요청자가  <code>close()</code> 함수를 사용하면 호출 즉시 OS에게 소켓의 리소스를 반환하며 모든 스트림이 파기되므로 FIN 패킷을 받은 수신자가 미처 못 보낸 데이터를 뒤늦게 전송하더라도 더 이상 처리할 수 없는 상황이 된다.</p>
-<p>즉, 반만 닫겠다는 말의 의미는 전송 스트림과 수신 스트림 중 하나만 닫겠다는 것을 의미하고, 필자는 <code>SHUT_WR</code> 값을 두 번째 인자로 사용함으로써 전송 스트림만 우선 닫겠다고 선언한 것이다.</p>
-<p>이후 수신자는 미처 못 보낸 데이터가 있다면 열심히 보낼 것이고, 이에 요청자는 아직 살아있는 수신 스트림을 사용하여 데이터를 처리한 후 <code>ACK</code> 패킷을 응답으로 보낼 수 있다. 이후 수신자가 모든 데이터를 처리하고나면 다시 요청자에게 FIN 패킷을 보냄으로써 모든 데이터가 처리되었다는 신호를 보내는 것이다.</p>
+<p>위의 예제에서는 <code>SHUT_WR</code> 값을 두 번째 인자로 사용함으로써 전송 스트림만 우선 닫겠다고 선언한 것이다.</p>
 <p>이와 관련된 더 자세한 정보는 구글에 <code>Half-Close</code>나 <code>우아한 종료</code> 등의 키워드로 검색하면 많은 자료가 나오니 한번 살펴보도록 하자.</p>
 <h3 id="CLOSE-WAIT"><a href="#CLOSE-WAIT" class="headerlink" title="CLOSE_WAIT"></a>CLOSE_WAIT</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-closewait.png" width="400"><br>  <br><br></center>
 
@@ -325,7 +336,7 @@
 <h3 id="LAST-ACK"><a href="#LAST-ACK" class="headerlink" title="LAST_ACK"></a>LAST_ACK</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-lastack.png" width="400"><br>  <br><br></center>
 
 <p>수신자는 자신이 처리할 데이터가 더 이상 없다면 연결을 종료하는 함수를 명시적으로 호출하고, 아까 요청자가 보냈던 연결 종료 요청에 합의한다는 의미로 요청자에게 다시 <code>FIN</code> 패킷을 보낸다.</p>
-<p>이때 수신자가 보내는 FIN 패킷에 담기는 시퀀스 넘버는 역시 랜덤한 값으로 생성하며, 승인 번호는 마지막으로 자신이 응답했던 승인 번호를 그대로 사용한다.</p>
+<p>이때 수신자가 보내는 FIN 패킷에 담기는 시퀀스 넘버는 랜덤한 값이 아니라 수신자가 이번에 전송해야 하는 데이터의 시퀀스 번호를 그대로 사용하며, 승인 번호는 마지막으로 자신이 응답했던 승인 번호를 그대로 사용한다.</p>
 <p>이후 수신자는 <code>LAST_ACK</code> 상태로 들어가며 요청자가 다시 승인 번호를 보내줄 때까지 대기한다.</p>
 <h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-timewait.png" width="400"><br>  <br><br></center>
 
