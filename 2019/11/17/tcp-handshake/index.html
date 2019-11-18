@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/17/tcp-handshake/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-18T01:05:41.544Z">
+<meta property="og:updated_time" content="2019-11-18T01:11:23.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP가 연결을 생성하고 종료하는 방법, 핸드쉐이크">
 <meta name="twitter:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
@@ -295,7 +295,7 @@
 <h3 id="FIN-WAIT-1"><a href="#FIN-WAIT-1" class="headerlink" title="FIN_WAIT_1"></a>FIN_WAIT_1</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-finwait1.png" width="400"><br>  <br><br></center>
 
 <p>먼저 연결을 종료하고자 하는 요청자가 FIN 패킷을 상대방에게 보내면서 <code>FIN_WAIT1</code> 상태로 들어서게 된다.</p>
-<p>이때 FIN 패킷에도 시퀀스 번호가 포함되어있긴 한데 3 Way Handshake 때와 다르게 이번에는 시퀀스 번호를 새롭게 정의할 필요가 없으므로, 그냥 자신이 이번에 보내야할 순서에 맞는 시퀀스 번호를 그대로 사용한다.</p>
+<p>이때 FIN 패킷에도 시퀀스 번호가 포함되어있긴한데, 이번에는 랜덤한 값으로 생성해서 보내는 것이 아니다. 3 Way Handshake는 시퀀스 번호가 없는 상황에서 새로 만들어야하는 상황이라 랜덤한 값으로 초기화했지만, 이번에는 시퀀스 번호를 새롭게 생성할 필요가 없으므로 그냥 자신이 이번에 보내야할 순서에 맞는 시퀀스 번호를 사용하면 되는 것이다.</p>
 <blockquote><ul>
 <li>요청자 —<strong>SEQ: 1</strong>—&gt; 수신자</li>
 <li>요청자 &lt;—<strong>ACK: 2</strong>— 수신자</li>
@@ -311,7 +311,7 @@
 <p><code>Half-Close</code>를 사용하면 요청자가 처음 보내는 FIN 패킷에 승인 번호를 함께 담아서 보내게 되는데, 이때 이 승인 번호의 의미는 “일단 연결은 종료할 건데 귀는 열어둔다. 이 승인 번호까지 처리했으니까 마저 보낼 거 있으면 보내”라는 의미가 된다.</p>
 <p>즉, 반만 닫겠다는 말의 의미는 연결을 종료할 때 전송 스트림과 수신 스트림 중 하나만 우선 닫겠다는 것을 의미하는 것이다.</p>
 <p>이후 수신자는 미처 못 보낸 데이터가 있다면 열심히 보낼 것이고, 이에 요청자는 아직 살아있는 수신 스트림을 사용하여 데이터를 처리한 후 <code>ACK</code> 패킷을 응답으로 보낼 수 있다. 이후 수신자가 모든 데이터를 처리하고나면 다시 요청자에게 FIN 패킷을 보냄으로써 모든 데이터가 처리되었다는 신호를 보내준다.</p>
-<p>그럼 요청자는 그때 나머지 반을 닫으면서 조금 더 안전하게 연결하게 연결을 종료할 수 있는 것이다.</p>
+<p>그럼 요청자는 그때 나머지 반을 닫으면서 조금 더 안전하게 연결을 종료할 수 있는 것이다.</p>
 <p>소켓 프로그래밍을 할 때 연결 종료 함수로 <code>close()</code>와 <code>shutdown()</code>을 사용할 수 있는데, 이때 <code>shutdown()</code> 함수를 사용하면 Half-Close를 사용할 수 있다.</p>
 <figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown(sockfd, SHUT_WR);</span><br></pre></td></tr></table></figure>
 <p>만약 요청자가  <code>close()</code> 함수를 사용하면 호출 즉시 OS에게 소켓의 리소스를 반환하며 모든 스트림이 파기되므로 FIN 패킷을 받은 수신자가 미처 못 보낸 데이터를 뒤늦게 전송하더라도 더 이상 처리할 수 없는 상황이 된다.</p>
@@ -336,7 +336,7 @@
 <h3 id="LAST-ACK"><a href="#LAST-ACK" class="headerlink" title="LAST_ACK"></a>LAST_ACK</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-lastack.png" width="400"><br>  <br><br></center>
 
 <p>수신자는 자신이 처리할 데이터가 더 이상 없다면 연결을 종료하는 함수를 명시적으로 호출하고, 아까 요청자가 보냈던 연결 종료 요청에 합의한다는 의미로 요청자에게 다시 <code>FIN</code> 패킷을 보낸다.</p>
-<p>이때 수신자가 보내는 FIN 패킷에 담기는 시퀀스 넘버는 랜덤한 값이 아니라 수신자가 이번에 전송해야 하는 데이터의 시퀀스 번호를 그대로 사용하며, 승인 번호는 마지막으로 자신이 응답했던 승인 번호를 그대로 사용한다.</p>
+<p>이때 수신자가 보내는 FIN 패킷에 담기는 시퀀스 넘버는 자신이 이번에 전송해야 하는 데이터의 시퀀스 번호를 그대로 사용하며, 승인 번호는 마지막으로 자신이 응답했던 승인 번호를 그대로 사용한다.</p>
 <p>이후 수신자는 <code>LAST_ACK</code> 상태로 들어가며 요청자가 다시 승인 번호를 보내줄 때까지 대기한다.</p>
 <h3 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME_WAIT"></a>TIME_WAIT</h3><center><br>  <img src="/2019/11/17/tcp-handshake/4way-timewait.png" width="400"><br>  <br><br></center>
 
