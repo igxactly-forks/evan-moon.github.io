@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/categories/essay/</loc>
+        <lastmod>2019-11-21T00:54:51.022Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/categories/programming/network/</loc>
         <lastmod>2019-11-18T01:24:53.826Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -24,13 +31,6 @@
     <url>
         <loc>https://evan-moon.github.io/categories/programming/algorithm/</loc>
         <lastmod>2019-11-18T01:24:47.013Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/categories/essay/</loc>
-        <lastmod>2019-11-18T01:24:10.348Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
