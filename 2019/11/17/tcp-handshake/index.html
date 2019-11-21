@@ -16,7 +16,7 @@
 <meta property="og:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://evan-moon.github.io/2019/11/17/tcp-handshake/thumbnail.png">
-<meta property="og:updated_time" content="2019-11-18T01:11:23.906Z">
+<meta property="og:updated_time" content="2019-11-21T03:24:00.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP가 연결을 생성하고 종료하는 방법, 핸드쉐이크">
 <meta name="twitter:description" content="저번에 작성했던 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅에 이어 이번에는 TCP의 핸드쉐이크 과정과 그 속에서 변화하는 TCP 상태에 대해서 한번 알아보려고 한다.">
@@ -244,7 +244,7 @@
 <p>수신자가 요청자의 연결 요청을 기다리고 있는 상태이다.</p>
 <p>이후 요청자가 연결 요청을 보내기 전까지 수신자는 계속 이 상태로 대기하게 된다. 즉, 적극적으로 상대방에게 대시하지 않는다는 것인데, 그래서 이 상태를 <code>수동 개방(Passive Open)</code>이라 하고, 수신자를 <code>Passive Opener</code>라고도 한다.</p>
 <p>소켓 프로그래밍을 할 때, 소켓 바인딩을 한 후 <code>listen</code> 함수를 호출하게 되면 수신자가 LISTEN 상태로 들어가게 된다.</p>
-<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> ((listen(sockfd, <span class="hljs-number">5</span>)) != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Listen failed...\n"</span>);</span><br><span class="line">  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">else</span></span><br><span class="line">  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Server listening..\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> ((listen(sockfd, <span class="hljs-number">5</span>)) != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Listen failed...\n"</span>);</span><br><span class="line">  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">else</span> &#123;</span><br><span class="line">  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Server listening..\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>이후 수신자는 요청자의 연결 요청이 확인되면 <code>accept</code> 함수를 호출하여 다음 단계로 넘어가게 된다.</p>
 <h3 id="SYN-SENT"><a href="#SYN-SENT" class="headerlink" title="SYN_SENT"></a>SYN_SENT</h3><center><br>  <img src="/2019/11/17/tcp-handshake/3way-synsent.png" width="400"><br>  <br><br></center>
 

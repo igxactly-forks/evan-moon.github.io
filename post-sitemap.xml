@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2019/11/17/tcp-handshake/</loc>
+        <lastmod>2019-11-21T03:24:00.311Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2019/11/16/the-way-to-control-anxiety/</loc>
         <lastmod>2019-11-21T00:54:51.022Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -58,14 +66,6 @@
     <url>
         <loc>https://evan-moon.github.io/2019/07/02/what-is-agile/</loc>
         <lastmod>2019-11-18T01:23:39.547Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/2019/11/17/tcp-handshake/</loc>
-        <lastmod>2019-11-18T01:11:23.906Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
