@@ -528,6 +528,27 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8-%EB%A6%AC%EB%B7%B0/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%ED%94%84%EB%A1%9C%ED%8E%98%EC%85%94%EB%84%90/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%A0%95%EC%8B%A0/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/tags/rebase/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -557,27 +578,6 @@
 
     <url>
         <loc>https://evan-moon.github.io/tags/git/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8-%EB%A6%AC%EB%B7%B0/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%ED%94%84%EB%A1%9C%ED%8E%98%EC%85%94%EB%84%90/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%A0%95%EC%8B%A0/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
