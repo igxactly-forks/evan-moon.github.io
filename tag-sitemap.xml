@@ -3,6 +3,76 @@
 
 
     <url>
+        <loc>https://evan-moon.github.io/tags/sliding-window/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%94%A9-%EC%9C%88%EB%8F%84%EC%9A%B0/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/selective-repeat/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/go-back-n/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/stop-and-wait/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/error-control/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/flow-control/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EC%98%A4%EB%A5%98-%EC%A0%9C%EC%96%B4/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%ED%9D%90%EB%A6%84-%EC%A0%9C%EC%96%B4/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/tcp/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/tags/tcp-handshake/</loc>
         <lastmod>2019-11-21T03:24:00.311Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -25,13 +95,6 @@
 
     <url>
         <loc>https://evan-moon.github.io/tags/syn/</loc>
-        <lastmod>2019-11-21T03:24:00.311Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/tcp/</loc>
         <lastmod>2019-11-21T03:24:00.311Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -465,27 +528,6 @@
     </url>
 
     <url>
-        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8-%EB%A6%AC%EB%B7%B0/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%ED%94%84%EB%A1%9C%ED%8E%98%EC%85%94%EB%84%90/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%A0%95%EC%8B%A0/</loc>
-        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://evan-moon.github.io/tags/rebase/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -515,6 +557,27 @@
 
     <url>
         <loc>https://evan-moon.github.io/tags/git/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8-%EB%A6%AC%EB%B7%B0/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%ED%94%84%EB%A1%9C%ED%8E%98%EC%85%94%EB%84%90/</loc>
+        <lastmod>2019-10-01T07:36:01.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EC%9E%A5%EC%9D%B8%EC%A0%95%EC%8B%A0/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

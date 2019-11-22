@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2019/11/22/tcp-flow-control-error-control/</loc>
+        <lastmod>2019-11-22T08:12:33.135Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2019/11/17/tcp-handshake/</loc>
         <lastmod>2019-11-21T03:24:00.311Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -152,7 +160,7 @@
     </url>
 
     <url>
-        <loc>https://evan-moon.github.io/2019/08/30/commit-history-merge-strategy/</loc>
+        <loc>https://evan-moon.github.io/2019/09/05/about-software-craftsmanship/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -160,7 +168,7 @@
     </url>
 
     <url>
-        <loc>https://evan-moon.github.io/2019/09/05/about-software-craftsmanship/</loc>
+        <loc>https://evan-moon.github.io/2019/08/30/commit-history-merge-strategy/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
