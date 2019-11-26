@@ -3,6 +3,62 @@
 
 
     <url>
+        <loc>https://evan-moon.github.io/tags/reno/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/tahoe/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/cwnd/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/slow-start/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/aimd/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%ED%98%BC%EC%9E%A1-%EC%A0%9C%EC%96%B4/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/congestion-control/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/tcp/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/tags/sliding-window/</loc>
         <lastmod>2019-11-22T11:04:12.024Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -60,13 +116,6 @@
 
     <url>
         <loc>https://evan-moon.github.io/tags/%ED%9D%90%EB%A6%84-%EC%A0%9C%EC%96%B4/</loc>
-        <lastmod>2019-11-22T11:04:12.024Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/tcp/</loc>
         <lastmod>2019-11-22T11:04:12.024Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

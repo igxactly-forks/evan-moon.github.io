@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2019/11/26/tcp-congestion-control/</loc>
+        <lastmod>2019-11-26T08:44:27.422Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2019/11/22/tcp-flow-control-error-control/</loc>
         <lastmod>2019-11-22T11:04:12.024Z</lastmod>
         <changefreq>weekly</changefreq>
