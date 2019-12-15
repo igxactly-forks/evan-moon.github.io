@@ -35,7 +35,7 @@
 
 
 
-<link rel="icon" href="/img/favicon.png">
+<link rel="icon" href="/img/favicon.ico">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -117,7 +117,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
             
-                <img src="/images/logo.png" alt="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?" height="28">
+                <img src="/img/logo-text.png" alt="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?" height="28">
             
             </a>
         </div>
@@ -346,7 +346,7 @@
 </tr>
 </tbody>
 </table>
-<p>ECN은 이 포스팅의 주제와는 또 다른 이야기이므로 궁금하신 분들은 MR.ZERO님의 <a href="https://mr-zero.tistory.com/20" rel="external nofollow noopener noreferrer" target="_blank">Explict Congestion Notification?</a> 블로그를 참고하길 바란다.</p>
+<p>ECN은 이 포스팅의 주제와는 또 다른 이야기이므로 궁금하신 분들은 MR.ZERO님의 <a href="https://mr-zero.tistory.com/20" target="_blank" rel="external nofollow noopener noreferrer">Explict Congestion Notification?</a> 블로그를 참고하길 바란다.</p>
 <h3 id="Window-Size"><a href="#Window-Size" class="headerlink" title="Window Size"></a>Window Size</h3><center><br>  <img src="/2019/11/10/header-of-tcp/header-window-size.png"><br>  <br><br></center>
 
 <p>윈도우 사이즈 필드에는 한번에 전송할 수 있는 데이터의 양을 의미하는 값을 담는다. $2^{16} = 65535$ 만큼의 값을 표현할 수 있고 단위는 바이트이므로, 윈도우의 최대 크기는 <code>64KB</code>라는 말이 된다.</p>
@@ -377,8 +377,8 @@
 <h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>이렇게 간략한 TCP의 개요와 헤더 구조에 대해서 알아보았다. 사실 이 내용들은 TCP라는 놈의 껍데기 한 겹 정도에 불과한 내용이지만, 이게 거의 50년 묵은 프로토콜이다보니 포스팅 하나로 정리하기에는 내용이 굉장히 방대하다.</p>
 <p>서두에서 이야기 했듯이 TCP나 IP 같은 프로토콜은 소켓 프로그래밍이라도 하지 않는 이상 직접적으로 마주할 기회가 흔치 않은 것이 사실이다.</p>
 <p>하지만 직접 마주하지 않더라도 필자는 매일 HTTP를 사용하는 웹 개발자이기 때문에, 자신이 매일 사용하는 프로토콜이 어떤 식으로 굴러가는 지 정도는 알고 있는 것이 좋다고 생각한다.</p>
-<p>TCP가 커널에 어떻게 구현되어있는지 직접 확인해보고싶은 분은 깃허브에 올라가있는 리눅스 소스인 <a href="https://github.com/torvalds/linux/tree/master/net/ipv4" rel="external nofollow noopener noreferrer" target="_blank">linux/net/ipv4</a> 안에 있는 구현체들을 통해 확인해볼 수 있다.<small>(리눅스 소스 자체가 너무 커서 클론 받는 데 한 세월이라는 게 함정)</small></p>
-<p>혹시 자신이 직접 TCP 통신 과정을 확인해보고 싶은 분은 간단한 <a href="https://github.com/evan-moon/simple-tcp-example" rel="external nofollow noopener noreferrer" target="_blank">TCP 예제 프로그램</a>과 <code>tcpdump</code>, <code>netstat</code> 등의 유틸리티를 통해 확인해볼 수 있다. <code>tcpdump</code>를 클라이언와 서버가 주고 받는 패킷의 내용을 확인해보고, <code>netstat</code>을 사용하여 클라이언트와 서버의 TCP 상태를 확인해볼 수도 있다.</p>
+<p>TCP가 커널에 어떻게 구현되어있는지 직접 확인해보고싶은 분은 깃허브에 올라가있는 리눅스 소스인 <a href="https://github.com/torvalds/linux/tree/master/net/ipv4" target="_blank" rel="external nofollow noopener noreferrer">linux/net/ipv4</a> 안에 있는 구현체들을 통해 확인해볼 수 있다.<small>(리눅스 소스 자체가 너무 커서 클론 받는 데 한 세월이라는 게 함정)</small></p>
+<p>혹시 자신이 직접 TCP 통신 과정을 확인해보고 싶은 분은 간단한 <a href="https://github.com/evan-moon/simple-tcp-example" target="_blank" rel="external nofollow noopener noreferrer">TCP 예제 프로그램</a>과 <code>tcpdump</code>, <code>netstat</code> 등의 유틸리티를 통해 확인해볼 수 있다. <code>tcpdump</code>를 클라이언와 서버가 주고 받는 패킷의 내용을 확인해보고, <code>netstat</code>을 사용하여 클라이언트와 서버의 TCP 상태를 확인해볼 수도 있다.</p>
 <p>다음 포스팅에서는 TCP의 핸드쉐이크나 흐름 제어, 혼잡 제어 기법에 대해서 한번 다뤄보도록 하겠다.</p>
 <p>이상으로 TCP의 헤더에는 어떤 정보들이 담겨있는걸까? 포스팅을 마친다.</p>
 
@@ -683,7 +683,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.png" alt="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?" height="28">
+                    <img src="/img/logo-text.png" alt="TCP의 헤더에는 어떤 정보들이 담겨있는걸까?" height="28">
                 
                 </a>
                 <p class="is-size-7">

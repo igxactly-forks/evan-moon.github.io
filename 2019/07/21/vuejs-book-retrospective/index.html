@@ -35,7 +35,7 @@
 
 
 
-<link rel="icon" href="/img/favicon.png">
+<link rel="icon" href="/img/favicon.ico">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -117,7 +117,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
             
-                <img src="/images/logo.png" alt="흔한 개발랭이의 작가 입문기" height="28">
+                <img src="/img/logo-text.png" alt="흔한 개발랭이의 작가 입문기" height="28">
             
             </a>
         </div>
@@ -271,7 +271,7 @@
 <p>그래서 필자는 <code>어떻게 하면 글쓰기 외의 다른 행동에 시간을 쓰지 않고 글쓰기에만 집중할 수 있을까?</code> 라는 고민을 하기 시작했다.</p>
 <h3 id="Markdown을-사용하여-책-집필하기"><a href="#Markdown을-사용하여-책-집필하기" class="headerlink" title="Markdown을 사용하여 책 집필하기"></a>Markdown을 사용하여 책 집필하기</h3><p>필자가 고민한 결과로 선택한 것은 바로 <code>마크다운(Markdown, md)</code> 포맷이었다. 필자와 친구 둘 다 개발자이기 때문에 일단 <code>마크다운</code> 포맷은 우리에게 굉장히 익숙한 포맷이었고, 문서의 전체적인 스타일도 이미 정해져있기 때문에 스타일에 관한 걱정이나 별다른 작업 없이 계속 글쓰기에만 집중할 수 있을 것 같았다.</p>
 <p>하지만 결국 출판사에 원고를 보낼때는 <code>docx(MS Word)</code> 파일로 보내야 했고, 다른 리뷰어 분들에게 책에 대한 리뷰를 받을 때에는 <code>PDF</code> 파일로 보내드려야 했기 때문에 <code>md to docx</code> 컨버팅 혹은 <code>md to pdf</code> 컨버팅을 할 수 있는 방법을 찾아야 했다.</p>
-<p>그래서 찾아낸 게 <a href="https://pandoc.org/" rel="external nofollow noopener noreferrer" target="_blank">pandoc</a>과 <a href="https://github.com/alanshaw/markdown-pdf" rel="external nofollow noopener noreferrer" target="_blank">markdown-pdf</a>라는 라이브러리였다. <code>pandoc</code>은 홈페이지에 Universal Document Converter라고 홍보하고 있을 만큼 다양한 포맷의 문서 변환을 지원해준다. 물론 <code>Markdown to Docx</code>도 지원한다. 하지만 <code>Markdown to PDF</code>는 지원하지 않기 때문에 해당 기능을 구현하기 위해 다른 라이브러리를 찾아야했는데, 그 과정에서 <code>markdown-pdf</code>라는 라이브러리를 찾았다.</p>
+<p>그래서 찾아낸 게 <a href="https://pandoc.org/" target="_blank" rel="external nofollow noopener noreferrer">pandoc</a>과 <a href="https://github.com/alanshaw/markdown-pdf" target="_blank" rel="external nofollow noopener noreferrer">markdown-pdf</a>라는 라이브러리였다. <code>pandoc</code>은 홈페이지에 Universal Document Converter라고 홍보하고 있을 만큼 다양한 포맷의 문서 변환을 지원해준다. 물론 <code>Markdown to Docx</code>도 지원한다. 하지만 <code>Markdown to PDF</code>는 지원하지 않기 때문에 해당 기능을 구현하기 위해 다른 라이브러리를 찾아야했는데, 그 과정에서 <code>markdown-pdf</code>라는 라이브러리를 찾았다.</p>
 <p>여기까지 리서치를 마친 필자는 친구에게 <code>구글 독스</code>에서 <code>마크다운</code>으로 갈아타자는 제안을 했고, 친구도 고민 끝에 수락하여 이후 책의 집필은 모두 <code>마크다운</code>과 <code>깃(Git)</code>을 사용하여 진행했다.</p>
 <h3 id="Git을-이용한-문서의-버전관리"><a href="#Git을-이용한-문서의-버전관리" class="headerlink" title="Git을 이용한 문서의 버전관리"></a>Git을 이용한 문서의 버전관리</h3><p><code>구글 독스</code>를 사용할 때 겪었던 또 다른 문제점 중 하나가 바로 <code>문서의 버전관리</code>가 힘들다는 것이다. 물론 <code>구글 독스</code>도 <code>파일 &gt; 버전기록</code> 메뉴에 들어가면 각 버전에서 추가된 내용이나 삭제된 내용을 확인할 수 있지만, 그 버전이 정확히 어떤 단위로 묶인 단위인지 명확하지않다는 것이 단점이다.</p>
 <p>하지만 <code>깃</code>을 사용하면 커밋을 할 때 의미있는 단위로 나누고 정확한 커밋 메세지를 작성함으로써 정확히 문서의 어떤 부분을 수정했는지 상대방에게 알릴 수 있다. 또한 일정 단위의 문서를 작성하고나면 <code>풀 리퀘스트(Pull Request)</code>를 통해 상대방에게 리뷰를 받는 식으로 서로 작성한 부분에 대해서 최소 1번 이상은 리뷰를 하도록 할 수 있다.</p>
@@ -318,7 +318,7 @@
 <center><br>  <img src="/2019/07/21/vuejs-book-retrospective/thanks.jpg" width="400"><br>  <br><br></center>
 
 <p>만약 스터디 회식 때 혹시 노래방을 가게 된다면 필자가 압도적 감사의 마음으로 옆에서 탬버린을 <code>16비트</code>로 쳐보겠다.<small>(준코에서 탬버린치다가 2개 부셔먹은 경력 보유 중입니다)</small></p>
-<p>참고로 필자의 책은 <a href="http://www.yes24.com/Product/Goods/76639545" rel="external nofollow noopener noreferrer" target="_blank">Yes24</a>에서 구경해볼 수 있지만, 아직 초판 인쇄가 끝나지 않았기 때문에 배송은 다음 달부터 가능하다.<br>하지만 필자는 인터넷에서 책을 구매하는 것보다 나중에 <code>교보문고</code>같은 오프라인 서점에 책이 입고되면 가서 직접 한번 읽어보고 사는 것을 추천하고싶다. 이 글을 읽는 미래의 독자님들께서 교보문고에 갔을 때 <code>민트색 표지에 커피 일러스트</code>를 보고나서 필자를 떠올리고 한번 책을 펼쳐보게 만드는 것만으로도 필자는 행복해질 것 같다.</p>
+<p>참고로 필자의 책은 <a href="http://www.yes24.com/Product/Goods/76639545" target="_blank" rel="external nofollow noopener noreferrer">Yes24</a>에서 구경해볼 수 있지만, 아직 초판 인쇄가 끝나지 않았기 때문에 배송은 다음 달부터 가능하다.<br>하지만 필자는 인터넷에서 책을 구매하는 것보다 나중에 <code>교보문고</code>같은 오프라인 서점에 책이 입고되면 가서 직접 한번 읽어보고 사는 것을 추천하고싶다. 이 글을 읽는 미래의 독자님들께서 교보문고에 갔을 때 <code>민트색 표지에 커피 일러스트</code>를 보고나서 필자를 떠올리고 한번 책을 펼쳐보게 만드는 것만으로도 필자는 행복해질 것 같다.</p>
 <p>이상으로 흔한 개발랭이의 작가 입문기 포스팅을 마친다.</p>
 
         </div>
@@ -622,7 +622,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.png" alt="흔한 개발랭이의 작가 입문기" height="28">
+                    <img src="/img/logo-text.png" alt="흔한 개발랭이의 작가 입문기" height="28">
                 
                 </a>
                 <p class="is-size-7">

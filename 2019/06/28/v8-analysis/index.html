@@ -35,7 +35,7 @@
 
 
 
-<link rel="icon" href="/img/favicon.png">
+<link rel="icon" href="/img/favicon.ico">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -117,7 +117,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
             
-                <img src="/images/logo.png" alt="V8 엔진은 어떻게 내 코드를 실행하는 걸까?" height="28">
+                <img src="/img/logo-text.png" alt="V8 엔진은 어떻게 내 코드를 실행하는 걸까?" height="28">
             
             </a>
         </div>
@@ -207,12 +207,12 @@
         
         <div class="content">
             <p>이번 포스팅에서는 구글의 <strong>V8</strong> 엔진이 어떤 방식으로 자바스크립트를 해석하고 실행하는지 살펴 보는지에 대해 포스팅하려고 한다. <code>V8</code>은 <code>C++</code>로 작성되었지만 필자의 메인 언어가 <code>C++</code>이 아니기도 하고, 워낙 소스가 방대하기 때문에 자세한 분석까지는 아니라도 최대한 웹 상에 있는 정보들과 필자가 분석한 <code>V8</code>의 소스코드를 비교해가면서 살펴보려고 한다.<br><a id="more"></a></p>
-<h2 id="V8-엔진이란"><a href="#V8-엔진이란" class="headerlink" title="V8 엔진이란?"></a>V8 엔진이란?</h2><p><code>V8</code> 엔진은 구글이 주도하여 <code>C++</code>로 작성된 고성능의 자바스크립트 &amp; 웹 어셈블리 엔진이다. 또한 <code>V8</code>은 오픈 소스이기 때문에 <a href="https://github.com/v8/v8" rel="external nofollow noopener noreferrer" target="_blank">V8 엔진 깃허브 레파지토리</a>에서 클론받을 수 있다. 현재 <code>Google Chrome</code>과 <code>NodeJS</code>에서 사용되고 있으며 <code>ECMAScript</code>와 <code>Web Assembly</code>를 표준에 맞게 구현하였다.</p>
-<p><a href="https://kangax.github.io/compat-table/es2016plus/" rel="external nofollow noopener noreferrer" target="_blank">Kangax Table</a>에서 확인해보면, <code>V8</code>을 사용하고 있는 <code>CH(Google Chrome)</code>과 <code>Node</code>는 거의 대부분의 ES2016+(ES7+)의 기능을 구현해놓은 반면 MicroSoft의 <code>Chakra</code>나 Mozila의 <code>SpiderMonkey</code>의 경우 붉은 색으로 표시된 부분이 꽤 존재한다는 것을 볼 수 있다.</p>
+<h2 id="V8-엔진이란"><a href="#V8-엔진이란" class="headerlink" title="V8 엔진이란?"></a>V8 엔진이란?</h2><p><code>V8</code> 엔진은 구글이 주도하여 <code>C++</code>로 작성된 고성능의 자바스크립트 &amp; 웹 어셈블리 엔진이다. 또한 <code>V8</code>은 오픈 소스이기 때문에 <a href="https://github.com/v8/v8" target="_blank" rel="external nofollow noopener noreferrer">V8 엔진 깃허브 레파지토리</a>에서 클론받을 수 있다. 현재 <code>Google Chrome</code>과 <code>NodeJS</code>에서 사용되고 있으며 <code>ECMAScript</code>와 <code>Web Assembly</code>를 표준에 맞게 구현하였다.</p>
+<p><a href="https://kangax.github.io/compat-table/es2016plus/" target="_blank" rel="external nofollow noopener noreferrer">Kangax Table</a>에서 확인해보면, <code>V8</code>을 사용하고 있는 <code>CH(Google Chrome)</code>과 <code>Node</code>는 거의 대부분의 ES2016+(ES7+)의 기능을 구현해놓은 반면 MicroSoft의 <code>Chakra</code>나 Mozila의 <code>SpiderMonkey</code>의 경우 붉은 색으로 표시된 부분이 꽤 존재한다는 것을 볼 수 있다.</p>
 <blockquote><p>다른 플랫폼과의 호환과 서로 간의 리스크를 줄이기 위해, 마이크로소프트 Edge는 이제 이 변경 사항의 일부분으로 인해 V8 엔진을 사용할 것 입니다. 우리가 배워야할 것들은 아직 많지만 그래도 우리는 V8 커뮤니티의 일원이 된 것과 이 프로젝트에 기여하게 된 것이 매우 기대됩니다.</p>
-<footer><strong>ChakraCore team</strong><cite><a href="https://github.com/Microsoft/ChakraCore/issues/5865" rel="external nofollow noopener noreferrer" target="_blank">ChakraCore Github Issue</a></cite></footer></blockquote>
+<footer><strong>ChakraCore team</strong><cite><a href="https://github.com/Microsoft/ChakraCore/issues/5865" target="_blank" rel="external nofollow noopener noreferrer">ChakraCore Github Issue</a></cite></footer></blockquote>
 <p>하지만 <code>Chakra</code> 엔진을 사용하던 <code>Microsoft Edge</code>의 경우, 이제 Chromium 오픈소스 프로젝트에 동참하면서 <code>V8</code>을 사용할 예정이라고 한다. 음… 좋은 건지 나쁜 건지 아직은 잘 모르겠다.</p>
-<p>만약 <code>V8</code>을 빌드해서 실제로 디버깅까지 해보고 싶다면 단순히 <code>git</code>을 사용하여 클론 받는 것으로는 빌드를 할 수 없다. 빌드까지 해보고 싶은 분은 <code>V8</code> 공식 홈페이지의 <a href="https://v8.dev/docs/source-code" rel="external nofollow noopener noreferrer" target="_blank">Checking out the V8 source code</a>를 읽어보자.</p>
+<p>만약 <code>V8</code>을 빌드해서 실제로 디버깅까지 해보고 싶다면 단순히 <code>git</code>을 사용하여 클론 받는 것으로는 빌드를 할 수 없다. 빌드까지 해보고 싶은 분은 <code>V8</code> 공식 홈페이지의 <a href="https://v8.dev/docs/source-code" target="_blank" rel="external nofollow noopener noreferrer">Checking out the V8 source code</a>를 읽어보자.</p>
 <center><br>  <img src="/2019/06/28/v8-analysis/meme1.jpeg" width="400"><br>  <sub>Chromium이 워낙 대형 프로젝트다보니 빌드 한번 하려면 설치 과정부터 까다롭다</sub><br>  <br><br></center>
 
 <p>필자는 예전에 한번 셋업해본 적이 있는데, 당연하게도 순순히 잘 설치되어주지는 않으니 시간 많은 주말에 시도하는 것을 추천한다. 이번에는 단순히 소스 코드만 분석할 예정이므로 필자는 <code>git</code>을 이용하여 직접 클론받았다.</p>
@@ -225,7 +225,7 @@
 <p>여기서 사용되는 용어들이 굉장히 재미있는데, <code>V8</code>은 원래 8기통 엔진의 종류를 의미하는 단어다. 제네시스 G90이나 기아 K9같은 차에 들어간다고 한다.<br>그럼 <code>Ignition</code>은 뭐냐. 엔진에 시동걸 때 사용하는 <code>점화기</code>이다. 내 소스 코드가 부릉부릉 실행되는 것이다. 그러다가 너무 많이 호출되서 내 코드가 뜨거워지면 <code>TurboFan</code>으로 최적화해서 너무 과열되지 않게 식혀주는 그런 느낌적인 느낌…? 분명히 다 노리고 네이밍한거다.</p>
 <p><code>V8</code> 분석 포스팅에서 컴파일 파이프라인을 설명할 때 빠지지 않던 <code>Full-codegen</code>과 <code>Crankshaft</code>는 어디로 갔냐 하면…</p>
 <blockquote><p>V8 v5.9부터 처음으로 Ignition과 TurboFan은 자바스크립트 실행을 위해 전체적으로 사용됩니다. 또한 V8의 v5.9부터 V8을 잘 지탱해준 기술이었던 Full-codegen과 Crankshaft는 새로운 자바스크립트의 기능과 이러한 기능들이 요구하는 최적화 기능을 더 이상 따라갈 수 없기 때문에 V8에서 더 이상 사용되지 않습니다. 우리는 이것들을 곧 완전히 제거할 계획이며, 이는 V8이 앞으로 훨씬 더 단순하고 유지 보수 가능한 아키텍처를 갖게 된다는 것을 의미합니다.</p>
-<footer><strong>V8 team</strong><cite><a href="https://v8.dev/blog/launching-ignition-and-turbofan" rel="external nofollow noopener noreferrer" target="_blank">Launching Ignition and TurboFan</a></cite></footer></blockquote>
+<footer><strong>V8 team</strong><cite><a href="https://v8.dev/blog/launching-ignition-and-turbofan" target="_blank" rel="external nofollow noopener noreferrer">Launching Ignition and TurboFan</a></cite></footer></blockquote>
 <center><br>  <img src="/2019/06/28/v8-analysis/bye.jpg"><br>  <small>네. V8의 v5.9부터 세대 교체 당했습니다.</small><br>  <br><br></center>
 
 <p><code>v5.9</code> 이전까지는 <code>Full-codegen</code>과 <code>Crankshaft</code>도 공존하고 있었지만 이건 <code>V8</code> 팀이 원했던 것이 아니라 초창기의 <code>Ignition</code>과 <code>TurboFan</code>의 성능이 생각만큼 잘 나와주지 않았던 것도 있고 <code>Optimizing</code>된 코드를 다시 <code>Deoptimizing</code>할 때 바이트 코드로 바로 변환할 수 없던 이슈들이 있어서 어쩔 수 없이 중간에 <code>Full-codegen</code>과 <code>Crankshaft</code>를 살려둔 것이다.</p>
@@ -586,7 +586,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.png" alt="V8 엔진은 어떻게 내 코드를 실행하는 걸까?" height="28">
+                    <img src="/img/logo-text.png" alt="V8 엔진은 어떻게 내 코드를 실행하는 걸까?" height="28">
                 
                 </a>
                 <p class="is-size-7">
