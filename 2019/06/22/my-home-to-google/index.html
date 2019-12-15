@@ -267,7 +267,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="특수한-목적의-IPv4-주소"><a href="#특수한-목적의-IPv4-주소" class="headerlink" title="특수한 목적의 IPv4 주소"></a>특수한 목적의 IPv4 주소</h3><p>이렇게 클래스를 나누고 그 클래스 내부에서도 특수한 용도를 위해 미리 예약해놓은 IPv4 주소들이 있다. 이 예약 주소들은 <a href="https://tools.ietf.org/html/rfc5735" target="_blank" rel="external nofollow noopener noreferrer">RFC 5735</a>에 의해 정의되어 있으며 목적에 벗어난 용도로 할당 받는 것이 불가능하다. 이 포스팅에서는 간략하게 대표적인 몇가지만 설명하고 넘어가겠다.</p>
+<h3 id="특수한-목적의-IPv4-주소"><a href="#특수한-목적의-IPv4-주소" class="headerlink" title="특수한 목적의 IPv4 주소"></a>특수한 목적의 IPv4 주소</h3><p>이렇게 클래스를 나누고 그 클래스 내부에서도 특수한 용도를 위해 미리 예약해놓은 IPv4 주소들이 있다. 이 예약 주소들은 <a href="https://tools.ietf.org/html/rfc5735" rel="external nofollow noopener noreferrer" target="_blank">RFC 5735</a>에 의해 정의되어 있으며 목적에 벗어난 용도로 할당 받는 것이 불가능하다. 이 포스팅에서는 간략하게 대표적인 몇가지만 설명하고 넘어가겠다.</p>
 <table>
 <thead>
 <tr>
@@ -316,7 +316,7 @@
 <p>그렇다면 이 IP 주소들은 어디를 의미하는 걸까?</p>
 <h3 id="좀-더-자세히-알아보자"><a href="#좀-더-자세히-알아보자" class="headerlink" title="좀 더 자세히 알아보자!"></a>좀 더 자세히 알아보자!</h3><p>이제 이 IP 주소들이 각각 어디를 의미하는지, 어떤 회사가 소유하고 있는 어떤 디바이스인지 좀 더 자세히 알아보고 싶다. 간단하게 알아보는 방법은 <code>whois</code> 유틸리티를 사용하는 방법이 있다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ whois 172.217.25.68</span><br><span class="line">NetRange:       172.217.0.0 - 172.217.255.255</span><br><span class="line">CIDR:           172.217.0.0/16</span><br><span class="line">NetName:        GOOGLE</span><br><span class="line">NetHandle:      NET-172-217-0-0-1</span><br><span class="line">Parent:         NET172 (NET-172-0-0-0-0)</span><br><span class="line">NetType:        Direct Allocation</span><br></pre></td></tr></table></figure>
-<p>MacOS의 <code>whois</code> 유틸리티는 5개의 <code>whois</code> 서비스에 요청을 보내 받아온 결과를 출력해주는 방식이다. 참고로 대한민국의 <code>whois</code> 서비스는 KISA(한국인터넷진흥원)의 <a href="https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/main.jsp" target="_blank" rel="external nofollow noopener noreferrer">후이즈검색</a>에서 제공하고 있다.</p>
+<p>MacOS의 <code>whois</code> 유틸리티는 5개의 <code>whois</code> 서비스에 요청을 보내 받아온 결과를 출력해주는 방식이다. 참고로 대한민국의 <code>whois</code> 서비스는 KISA(한국인터넷진흥원)의 <a href="https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/main.jsp" rel="external nofollow noopener noreferrer" target="_blank">후이즈검색</a>에서 제공하고 있다.</p>
 <table>
 <thead>
 <tr>
@@ -347,7 +347,7 @@
 </tr>
 </tbody>
 </table>
-<p>그러나 <code>whois</code> 서비스는 기본적으로 도메인이 등록된 IP 주소의 소유주에 대한 정보를 보여주는 서비스라서 도메인이 등록되지 않은 게이트웨이나 라우터에 대한 정보는 나오지 않는다. 그래서 필자는 <a href="https://www.ip2location.com/demo" target="_blank" rel="external nofollow noopener noreferrer">IP2Location</a>이라는 사이트를 이용하여 한번 찾아볼 것이다.<small><strike>(근데 이것도 잘 나올 것 같지는 않다)</strike></small></p>
+<p>그러나 <code>whois</code> 서비스는 기본적으로 도메인이 등록된 IP 주소의 소유주에 대한 정보를 보여주는 서비스라서 도메인이 등록되지 않은 게이트웨이나 라우터에 대한 정보는 나오지 않는다. 그래서 필자는 <a href="https://www.ip2location.com/demo" rel="external nofollow noopener noreferrer" target="_blank">IP2Location</a>이라는 사이트를 이용하여 한번 찾아볼 것이다.<small><strike>(근데 이것도 잘 나올 것 같지는 않다)</strike></small></p>
 <p>먼저 첫번째 홉인 <code>192.168.25.*</code>은 필자 집의 공유기에서 할당해준 <code>사설 IP</code> 이고 두번째 홉은 <code>ISP(Internet Service Provider)</code>가 필자에게 부여해준 <code>공인 IP</code>이나, 보안 상 마스킹 했으므로 세번째 홉인 <code>100.71.51.17</code>부터 한번 살펴보겠다.</p>
 <h4 id="100-71-51-17"><a href="#100-71-51-17" class="headerlink" title="100.71.51.17"></a>100.71.51.17</h4><center><br>  <img src="https://images.ip2location.com/18399031.png"><br>  <br><br></center>
 
@@ -364,13 +364,13 @@
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">whois -h whois.ripe.net 72.14.204.124</span><br><span class="line"></span><br><span class="line">inetnum:        69.194.128.0 - 76.255.255.255</span><br><span class="line">netname:        NON-RIPE-NCC-MANAGED-ADDRESS-BLOCK</span><br><span class="line">descr:          IPv4 address block not managed by the RIPE NCC</span><br></pre></td></tr></table></figure>
 <p>역시 여기서 관리하고 있는 주소가 아니라고 한다. 그렇다면 아메리카를 담당하는 <code>whois.arin.net</code>에 물어보자.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">whois -h whois.arin.net 72.14.204.124</span><br><span class="line"></span><br><span class="line">NetRange:       72.14.192.0 - 72.14.255.255</span><br><span class="line">CIDR:           72.14.192.0/18</span><br><span class="line">NetName:        GOOGLE</span><br><span class="line">NetHandle:      NET-72-14-192-0-1</span><br><span class="line">Parent:         NET72 (NET-72-0-0-0-0)</span><br><span class="line">NetType:        Direct Allocation</span><br><span class="line">OriginAS:</span><br><span class="line">Organization:   Google LLC (GOGL)</span><br><span class="line">RegDate:        2004-11-10</span><br><span class="line">Updated:        2012-02-24</span><br><span class="line">Ref:            https://rdap.arin.net/registry/ip/72.14.192.0</span><br></pre></td></tr></table></figure>
-<p>오 이번에는 제대로 된 정보가 나왔다. <code>72.14.204.124</code> 주소를 가진 디바이스는 구글이 소유하고 있는 무언가인듯하다. <code>IP2Location</code>은 이제 필자에게 신뢰를 잃었기 때문에 가차없이 버리기로 하고 <a href="https://db-ip.com" target="_blank" rel="external nofollow noopener noreferrer">DB IP</a>라는 새로운 솔루션을 사용하겠다.<br><code>DB IP</code>를 사용하여 검색해보니 위치가 <code>Ashburn, Loudoun, Virginia, United States</code>로 잡히고 Connection Type은 <code>Hosting</code>으로 되어있다.</p>
+<p>오 이번에는 제대로 된 정보가 나왔다. <code>72.14.204.124</code> 주소를 가진 디바이스는 구글이 소유하고 있는 무언가인듯하다. <code>IP2Location</code>은 이제 필자에게 신뢰를 잃었기 때문에 가차없이 버리기로 하고 <a href="https://db-ip.com" rel="external nofollow noopener noreferrer" target="_blank">DB IP</a>라는 새로운 솔루션을 사용하겠다.<br><code>DB IP</code>를 사용하여 검색해보니 위치가 <code>Ashburn, Loudoun, Virginia, United States</code>로 잡히고 Connection Type은 <code>Hosting</code>으로 되어있다.</p>
 <center><br>  <img src="/2019/06/22/my-home-to-google/db-ip-result.png"><br>  <br><br></center>
 
 <p>그 이후 9번 홉인 <code>108.170.242.193</code>과 10번 홉인 <code>108.170.233.79</code> 또한 버지니아 주에 위치한 호스팅 서버인 것으로 표시되었다. 여기에 도대체 뭐가 있길래 다 여기에 옹기종기 모여있는걸까…?<br>조금 구글링을 해보니 구글이 <code>Ashburn</code>에서 일할 사람을 찾고 있는 공고를 발견했다. 또한 같은 버지니아 주의 옆 동네인 <code>Sterling</code>과 <code>Reston</code>으로도 채용공고가 많이 올라와있다.</p>
 <center><br>  <img src="/2019/06/22/my-home-to-google/google-hiring.png" width="500"><br>  <sub>날 뽑아줘요…엉엉</sub><br></center>
 
-<p>공고를 쭉 스캔해보니 주로 <code>Network Engineer</code>, <code>Administrative Business Partner, Data Center</code>, <code>Google Cloud</code>와 같은 키워드가 많이 보이는 걸로 봐서는 아무래도 여기에 구글 데이터센터가 있나보다. 좀 더 정보를 찾아보니 <a href="https://wtop.com/business-finance/2019/02/google-to-double-its-virginia-workforce/" target="_blank" rel="external nofollow noopener noreferrer">구글이 버지니아에서 일하는 인원을 두배 늘린다는 기사</a>도 올해 2월에 작성되었었다.</p>
+<p>공고를 쭉 스캔해보니 주로 <code>Network Engineer</code>, <code>Administrative Business Partner, Data Center</code>, <code>Google Cloud</code>와 같은 키워드가 많이 보이는 걸로 봐서는 아무래도 여기에 구글 데이터센터가 있나보다. 좀 더 정보를 찾아보니 <a href="https://wtop.com/business-finance/2019/02/google-to-double-its-virginia-workforce/" rel="external nofollow noopener noreferrer" target="_blank">구글이 버지니아에서 일하는 인원을 두배 늘린다는 기사</a>도 올해 2월에 작성되었었다.</p>
 <p>여기에 구글 데이터센터가 있는 것은 아무래도 확실한 것 같다.</p>
 <h4 id="172-217-25-68-google-com"><a href="#172-217-25-68-google-com" class="headerlink" title="172.217.25.68(google.com)"></a>172.217.25.68(google.com)</h4><img src="/2019/06/22/my-home-to-google/final.png">
 <p>자 드디어 마지막 <code>google.com</code> 도메인의 종착점인 <code>172.217.25.68</code> 주소를 가진 서버이다. 이 주소도 역시 <code>DB IP</code>를 통해 검색해본 결과 일본에 있는 서버라고 한다.</p>
@@ -535,7 +535,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">41</span>
+                <span class="level-item tag">42</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -559,7 +559,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

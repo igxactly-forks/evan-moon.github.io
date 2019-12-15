@@ -206,9 +206,9 @@
         <hr>
         
         <div class="content">
-            <p>1년 전, 필자는 <a href="http://voidcanvas.com/setimmediate-vs-nexttick-vs-settimeout/" target="_blank" rel="external nofollow noopener noreferrer">setImmediate &amp; process.nextTick</a>의 차이점에 대해 설명하면서 Node.js의 이벤트 루프 구조에 대해 살짝 언급한 적이 있었다. 놀랍게도 독자 분들은 원래 설명하려고 했던 부분보다 이벤트 루프 부분에 대해서 더 많이 관심을 주었고, 필자는 그 부분에 대해서 많은 질문을 받았었다. 그래서 이번에는 Node.js의 이벤트 루프를 구성하는 로우 레벨의 동작을 자세하게 설명해보려고 한다.<br><a id="more"></a></p>
+            <p>1년 전, 필자는 <a href="http://voidcanvas.com/setimmediate-vs-nexttick-vs-settimeout/" rel="external nofollow noopener noreferrer" target="_blank">setImmediate &amp; process.nextTick</a>의 차이점에 대해 설명하면서 Node.js의 이벤트 루프 구조에 대해 살짝 언급한 적이 있었다. 놀랍게도 독자 분들은 원래 설명하려고 했던 부분보다 이벤트 루프 부분에 대해서 더 많이 관심을 주었고, 필자는 그 부분에 대해서 많은 질문을 받았었다. 그래서 이번에는 Node.js의 이벤트 루프를 구성하는 로우 레벨의 동작을 자세하게 설명해보려고 한다.<br><a id="more"></a></p>
 <blockquote>
-<p>이 포스팅은 2018년 2월 19일에 Paul Shan이 작성한 <a href="http://voidcanvas.com/nodejs-event-loop/" target="_blank" rel="external nofollow noopener noreferrer">Node.js event loop workflow &amp; lifecycle in low level</a>를 번역한 글입니다. 의역이 있을 수 있습니다.</p>
+<p>이 포스팅은 2018년 2월 19일에 Paul Shan이 작성한 <a href="http://voidcanvas.com/nodejs-event-loop/" rel="external nofollow noopener noreferrer" target="_blank">Node.js event loop workflow &amp; lifecycle in low level</a>를 번역한 글입니다. 의역이 있을 수 있습니다.</p>
 </blockquote>
 <h2 id="왜-이-포스팅을-작성하게-되었나"><a href="#왜-이-포스팅을-작성하게-되었나" class="headerlink" title="왜 이 포스팅을 작성하게 되었나?"></a>왜 이 포스팅을 작성하게 되었나?</h2><p>만약에 여러분이 구글에서 <code>node.js event loop</code>를 검색하면 나오는 대부분의 아티클들은 자세한 내용을 설명해주지 않는다. <small>(그들은 매우 거시적으로만 이 과정을 묘사하려고 한다.)</small></p>
 <center><br>  <img src="/2019/08/01/nodejs-event-loop-workflow/node-js-wrong-event-loop_wdvpem.png" width="500"><br>  <br><br></center>
@@ -241,7 +241,7 @@
 <h3 id="Close-callbacks"><a href="#Close-callbacks" class="headerlink" title="Close callbacks"></a>Close callbacks</h3><p><code>socket.on(&#39;close&#39;, () =&gt; {})</code>과 같은 <code>close</code> 이벤트 타입의 핸들러들은 여기서 처리된다.</p>
 <h3 id="nextTickQueue와-microTaskQueue"><a href="#nextTickQueue와-microTaskQueue" class="headerlink" title="nextTickQueue와 microTaskQueue"></a>nextTickQueue와 microTaskQueue</h3><p><code>nextTickQueue</code>는 <code>process.nextTick()</code> API의 콜백들을 가지고 있으며, <code>microTaskQueue</code>는 Resolve된 프로미스의 콜백을 가지고 있다.</p>
 <p>이 두개의 큐는 기술적으로 이벤트 루프의 일부가 아니다. 즉, <code>libUV</code> 라이브러리에 포함된 것이 아니라 <code>Node.js</code>에 포함된 기술이라는 것이다. 이 친구들이 가지고 있는 작업들은 현재 실행되고 있는 작업이 끝나자마자 호출되어야한다.</p>
-<blockquote><p><strong>역주</strong>: <a href="https://github.com/libuv/libuv" target="_blank" rel="external nofollow noopener noreferrer">libUV</a>는 Node.js에서 사용하는 비동기 I/O 라이브러리이다. 이 라이브러리는 C로 작성되었고 윈도우나 리눅스 커널을 추상화해서 Wrapping하고 있는 구조이다. 즉, 커널에서 어떤 비동기 작업들을 지원해주는 지 알고 있기 때문에 커널을 사용하여 처리할 수 있는 비동기 작업을 발견하면 바로 커널로 작업을 넘겨버린다.</p>
+<blockquote><p><strong>역주</strong>: <a href="https://github.com/libuv/libuv" rel="external nofollow noopener noreferrer" target="_blank">libUV</a>는 Node.js에서 사용하는 비동기 I/O 라이브러리이다. 이 라이브러리는 C로 작성되었고 윈도우나 리눅스 커널을 추상화해서 Wrapping하고 있는 구조이다. 즉, 커널에서 어떤 비동기 작업들을 지원해주는 지 알고 있기 때문에 커널을 사용하여 처리할 수 있는 비동기 작업을 발견하면 바로 커널로 작업을 넘겨버린다.</p>
 <p>이후 이 작업들이 종료되어 OS 커널로부터 시스템 콜을 받으면 이벤트 루프에 콜백을 등록하는 것이다. 만약 OS 커널이 지원하지 않는 작업일 경우 별도의 스레드에 작업을 던져서 처리한다. 이 스레드에 관한 내용은 원작자가 밑에서 추가적으로 설명하고있다.</p>
 </blockquote>
 <h2 id="이벤트-루프의-작업-흐름"><a href="#이벤트-루프의-작업-흐름" class="headerlink" title="이벤트 루프의 작업 흐름"></a>이벤트 루프의 작업 흐름</h2><p>우리가 <code>node my-script.js</code>를 콘솔에서 실행시켰을 때, Node.js는 이벤트 루프를 생성한 다음 <strong>이벤트 루프 바깥</strong>에서 메인 모듈인 <code>my-script.js</code>를 실행한다. 한번 메인 모듈이 실행되고나면 Node.js는 이벤트 루프가 활성 상태인지, 즉 이벤트 루프 안에서 해야할 작업이 있는지를 확인한다. 만약 이벤트 루프를 돌릴 필요가 없다면 Node.js는 <code>process.on(&#39;exit, () =&gt; {})</code>를 실행하고 이벤트 루프를 종료하려고 할 것이다.</p>
@@ -326,7 +326,7 @@
 <li><code>setImmediate</code>은 실질적으로 다음 페이즈 혹은 다음 이벤트 루프의 순회에서 실행되고, <code>nextTick</code>이 오히려 실질적으로 더 빠르게 실행된다.</li>
 <li><code>nextTickQueue</code>에 담긴 작업이 재귀 호출을 수행하는 경우 Node.js의 작업 프로세스를 블록킹할 수 있다. 주의하도록 하자.</li>
 </ul>
-<h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>필자는 Node.js 코어 개발 팀이 아니다. 이 포스팅에 관한 필자의 모든 지식은 실험과 다른 포스팅들을 통해 얻은 것이다. 필자가 이 지식들을 얻기 위해 가장 큰 도움을 준 <a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="external nofollow noopener noreferrer">Node.js 공식 문서</a>에 감사한다.<br>두 번째로 도움이 많이 된 포스트는 Saúl Ibarra Corretgé의 <a href="https://www.youtube.com/watch?v=sGTRmPiXD4Y" target="_blank" rel="external nofollow noopener noreferrer">talk on libUV</a> 포스팅이다.<br>그리고 세 번째로 VoidCanvas 독자 분들 덕분에 이런 건강한 토론과 실험, 관찰을 할 수 있도록 된 것에 감사한다. 🙂</p>
+<h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>필자는 Node.js 코어 개발 팀이 아니다. 이 포스팅에 관한 필자의 모든 지식은 실험과 다른 포스팅들을 통해 얻은 것이다. 필자가 이 지식들을 얻기 위해 가장 큰 도움을 준 <a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" rel="external nofollow noopener noreferrer" target="_blank">Node.js 공식 문서</a>에 감사한다.<br>두 번째로 도움이 많이 된 포스트는 Saúl Ibarra Corretgé의 <a href="https://www.youtube.com/watch?v=sGTRmPiXD4Y" rel="external nofollow noopener noreferrer" target="_blank">talk on libUV</a> 포스팅이다.<br>그리고 세 번째로 VoidCanvas 독자 분들 덕분에 이런 건강한 토론과 실험, 관찰을 할 수 있도록 된 것에 감사한다. 🙂</p>
 
         </div>
         
@@ -581,7 +581,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">41</span>
+                <span class="level-item tag">42</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -605,7 +605,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

@@ -293,7 +293,7 @@
 <p>이후 <code>0~65536</code>의 값으로 변경된 전압을 컴퓨터가 이해할 수 있는 <code>이진수(Binary)</code>로 변경하는 과정을 <code>부호화(Coding)</code>라고 한다.</p>
 <p>이런 것들은 우리같은 개발랭이들은 워낙 익숙한 문제이기 때문에 이 정도만 설명하고 넘어가겠다.</p>
 <h2 id="Web-Audio-API로-파형-그려보기"><a href="#Web-Audio-API로-파형-그려보기" class="headerlink" title="Web Audio API로 파형 그려보기"></a>Web Audio API로 파형 그려보기</h2><p>자, 드디어 길고 길었던 소리 이론이 끝났다. 필자는 디지털로 변환된 오디오를 가지고 파형을 그려보는 것이 목적이기 때문에 <code>Analog to Digital</code>만 다뤘고 <code>Digital to Analog</code>는 이 포스팅에서 다루지 않겠다. 근데 이것도 나름 재밌으므로 따로 찾아보길 강추한다.</p>
-<p>필자는 오디오 파일을 업로드해서 해당 오디오 파일을 <code>Web Audio API</code>로 분석하여 필요한 데이터를 뽑아내고 <code>svg</code>를 사용하여 파형을 그릴 것이다.<br>참고로 프로젝트는 <code>webpack4</code>와 <code>babel7</code>을 사용하여 초간단하게 구성했다. 자세한 코드는 <a href="https://github.com/evan-moon/simple-waveform-visualizer" target="_blank" rel="external nofollow noopener noreferrer">깃허브 레파지토리</a>에서 확인 해볼 수 있다.</p>
+<p>필자는 오디오 파일을 업로드해서 해당 오디오 파일을 <code>Web Audio API</code>로 분석하여 필요한 데이터를 뽑아내고 <code>svg</code>를 사용하여 파형을 그릴 것이다.<br>참고로 프로젝트는 <code>webpack4</code>와 <code>babel7</code>을 사용하여 초간단하게 구성했다. 자세한 코드는 <a href="https://github.com/evan-moon/simple-waveform-visualizer" rel="external nofollow noopener noreferrer" target="_blank">깃허브 레파지토리</a>에서 확인 해볼 수 있다.</p>
 <h3 id="기본-틀-잡기"><a href="#기본-틀-잡기" class="headerlink" title="기본 틀 잡기"></a>기본 틀 잡기</h3><p>그럼 먼저 HTML을 간단하게 작성하자.</p>
 <figure class="highlight html hljs"><figcaption><span>index.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"audio-uploader"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"file"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"waveform"</span> <span class="hljs-attr">preserveAspectRatio</span>=<span class="hljs-string">"none"</span>&gt;</span></span><br><span class="line">    <span class="hljs-tag">&lt;<span class="hljs-name">g</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"waveform-path-group"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>HTML은 이게 끝이다. 오디오 파일을 업로드할 <code>input</code> 엘리먼트 하나와 파형을 그릴 <code>svg</code> 엘리먼트 하나만 있으면 된다. 어차피 테스트 용도라서 UI가 중요한게 아니기 때문에 기능 구현에 충실했다.<small>(라고 포장을 해봅니다)</small></p>
@@ -368,13 +368,13 @@
 <p>우리가 그리려는 오디오 파형은 디지털 신호를 표현한 것이기 때문에 위에서 우리가 봤던 오디오 신호의 예시처럼 연속적인 아날로그로는 표현이 불가능 하다. 그래서 이렇게 작대기를 쭉쭉 그어가면서 표현해야하는 것이다. 이렇게 보면 상당히 허접한 그림이 나올 것 같지만, 저 선이 <code>88,200</code>개가 겹쳐있으면 꽤 그럴싸해보인다.</p>
 <center><br>  <img src="/2019/07/10/javascript-audio-waveform/two-dimension.png"><br>  <small>작대기도 잘 그으면 예술이 된다</small><br>  <br><br></center>
 
-<p>자, 이렇게 오디오 파형을 심플하게 그려보았다. 여기까지 해놓고 하는 말인데… 사실 <a href="https://github.com/katspaugh/wavesurfer.js" target="_blank" rel="external nofollow noopener noreferrer">WaveSurfer</a>라고 이거 해주는 라이브러리가 있다. 기능도 더 많다.</p>
+<p>자, 이렇게 오디오 파형을 심플하게 그려보았다. 여기까지 해놓고 하는 말인데… 사실 <a href="https://github.com/katspaugh/wavesurfer.js" rel="external nofollow noopener noreferrer" target="_blank">WaveSurfer</a>라고 이거 해주는 라이브러리가 있다. 기능도 더 많다.</p>
 <p>그냥 내 손으로 한번 직접 그려보고 싶었다.</p>
 <h2 id="음악-주세요-DJ"><a href="#음악-주세요-DJ" class="headerlink" title="음악 주세요 DJ"></a>음악 주세요 DJ</h2><p>파형만 그리기는 좀 아쉬우니 막간을 이용해서 메소드 하나만 더 만들어보자. 바로 이 음악을 재생하는 기능이다.<br>원래 이 메소드를 만들 때 필자의 의도는 <code>음악이라도 좀 들으면서 만들자</code>였는데 이거 만들면서 <code>그대 돌아오면</code>을 너무 많이 들어서 조금 질려버렸다.<small>(거미 누나 미안…)</small></p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">play (buffer) &#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> sourceBuffer = <span class="hljs-keyword">this</span>.audioContext.createBufferSource();</span><br><span class="line">  sourceBuffer.buffer = buffer;</span><br><span class="line">  sourceBuffer.connect(<span class="hljs-keyword">this</span>.audioContext.destination);</span><br><span class="line">  sourceBuffer.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>AudioContext.prototype.createBufferSource</code> 메소드는 <code>AudioNode</code> 중 하나인 <code>AudioBufferSourceNode</code>라는 친구를 생성하는 메소드인데, 이 <code>AudioNode</code>에게 우리가 지금까지 가지고 놀았던 <code>AudioBuffer</code>를 넘겨주면 진짜 오디오적인 컨트롤을 할 수가 있게 도와주는 음…껍데기 같은 느낌이다.</p>
 <p><code>Web Audio API</code>는 이런 <code>AudioNode</code>들을 서로 연결해서 소리를 변조할 수 있는 기능을 제공하기 때문에 이걸 사용해서 컴프레서나 리버브 같은 오디오 이펙터도 만들 수 있다. 다음에는 한번 오디오 이펙터를 만들어보는 것을 목표로 해야겠다.</p>
-<p>완성된 샘플의 소스는 필자의 <a href="https://github.com/evan-moon/simple-waveform-visualizer" target="_blank" rel="external nofollow noopener noreferrer">깃허브 레파지토리</a>에서, 라이브 데모는 <a href="https://simple-audio-waveform.herokuapp.com/" target="_blank" rel="external nofollow noopener noreferrer">여기서</a> 확인할 수 있다.</p>
+<p>완성된 샘플의 소스는 필자의 <a href="https://github.com/evan-moon/simple-waveform-visualizer" rel="external nofollow noopener noreferrer" target="_blank">깃허브 레파지토리</a>에서, 라이브 데모는 <a href="https://simple-audio-waveform.herokuapp.com/" rel="external nofollow noopener noreferrer" target="_blank">여기서</a> 확인할 수 있다.</p>
 <p>이상으로 컴퓨터는 어떻게 소리를 들을까? 포스팅을 마친다.</p>
 
         </div>
@@ -546,7 +546,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">41</span>
+                <span class="level-item tag">42</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -570,7 +570,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

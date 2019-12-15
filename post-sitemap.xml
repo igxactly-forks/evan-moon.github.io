@@ -8,6 +8,22 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2019/08/24/what-is-object-oriented-programming/</loc>
+        <lastmod>2019-12-15T13:31:34.985Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/2019/12/15/about-functional-thinking/</loc>
+        <lastmod>2019-12-15T13:28:47.383Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2019/12/04/about-honestly-feedback/</loc>
         <lastmod>2019-12-03T16:59:58.587Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -258,14 +274,6 @@
     <url>
         <loc>https://evan-moon.github.io/2018/09/25/vue-ssr/</loc>
         <lastmod>2019-08-26T03:44:41.810Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/2019/08/24/what-is-object-oriented-programming/</loc>
-        <lastmod>2019-08-25T02:39:21.410Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
