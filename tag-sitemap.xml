@@ -3,6 +3,20 @@
 
 
     <url>
+        <loc>https://evan-moon.github.io/tags/retrospective/</loc>
+        <lastmod>2019-12-22T14:34:26.682Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://evan-moon.github.io/tags/%ED%9A%8C%EA%B3%A0/</loc>
+        <lastmod>2019-12-22T14:34:26.682Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/tags/object-oriendted-programming/</loc>
         <lastmod>2019-12-15T13:31:34.985Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -992,13 +1006,6 @@
     <url>
         <loc>https://evan-moon.github.io/tags/%EC%98%A4%EB%94%94%EC%98%A4-%EC%9D%B4%ED%8E%99%ED%84%B0/</loc>
         <lastmod>2019-08-25T02:37:53.984Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://evan-moon.github.io/tags/%ED%9A%8C%EA%B3%A0/</loc>
-        <lastmod>2019-08-25T02:37:37.611Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
