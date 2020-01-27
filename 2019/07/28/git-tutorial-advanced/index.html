@@ -297,7 +297,7 @@
 <p>이런 경우 <code>develop</code> 브랜치에서 <code>hotfix</code> 브랜치를 분기하여 <code>master</code>로 머지 후 긴급 배포를 하게되면 <code>develop</code> 브랜치에 들어있는 아직 배포되지 말아야할 기능들까지 배포되기 때문에, 핫픽스는 예외적으로 <code>master</code>에서 분기해서 다시 <code>master</code>로 머지할 수 있다.</p>
 <center><br>  <img src="/2019/07/28/git-tutorial-advanced/git-flow3.png"><br>  <br><br></center>
 
-<p>그래프가 조금 복잡해졌지만 검정색 라인인 <strong>hotfix/fix-main-page</strong>에만 집중해보자. <strong><font color="blue">master</font></strong> 브랜치로부터 갈라져나와서 한 개의 커밋이 찍히고 다시 <strong><font color="blue">master</font></strong>로 머지되는 것을 볼 수 있다. 이때는 정식 릴리즈가 아닌 핫픽스 릴리즈이므로 <a href="https://semver.org/lang/ko/" rel="external nofollow noopener noreferrer" target="_blank">Sementic Version</a> 룰에 따라 <code>0.0.1</code> 버전의 태그를 달아주었다.</p>
+<p>그래프가 조금 복잡해졌지만 검정색 라인인 <strong>hotfix/fix-main-page</strong>에만 집중해보자. <strong><font color="blue">master</font></strong> 브랜치로부터 갈라져나와서 한 개의 커밋이 찍히고 다시 <strong><font color="blue">master</font></strong>로 머지되는 것을 볼 수 있다. 이때는 정식 릴리즈가 아닌 핫픽스 릴리즈이므로 <a href="https://semver.org/lang/ko/" target="_blank" rel="external nofollow noopener noreferrer">Sementic Version</a> 룰에 따라 <code>0.0.1</code> 버전의 태그를 달아주었다.</p>
 <p><strong>hotfix/fix-main-page</strong> 브랜치가 머지되고 배포가 되었다는 것은 현재 운영 환경에서 돌아가고 있는 소스가 변경되었다는 것이므로 <strong><font color="red">develop</font></strong> 브랜치에도 해당 변경 사항을 반영해줘야한다. 그렇기 때문에 핫픽스 담당자는 배포를 하고 나면 <code>develop</code> 브랜치를 직접 최신화하는 것이 좋다. 그리고 동료들에게 <code>지금 핫픽스 배포가 끝났으니 각자 작업하시는 브랜치에서 develop 브랜치를 Pull하여 최신화 해주세요~</code>라고 알려주면 더더욱 좋을 것이다.</p>
 <p>물론 이런 복잡한 브랜치 전략 없이도 그냥 잘 돌아가는 조직도 있다. 하지만 같은 소스를 만지는 개발자가 많아지면 많아질수록 어느 정도의 룰조차 없다면 원활한 협업이 진행되기는 힘들 수도 있기 때문에 대부분의 규모있는 조직에서는 각자의 상황에 맞는 브랜치 전략을 세워서 버전 관리를 진행하고 있다.</p>
 <p>브랜치를 왜 하나로만 운영하지 않는지 이해가 되었다면, 이제 이 브랜치와 버전 히스토리들을 가지고 놀 수 있는 몇 가지 유용한 기능들을 더 살펴보도록 하자.</p>
@@ -320,15 +320,15 @@
 
 <p><code>리베이스(Rebase)</code>도 <code>머지(Merge)</code>와 마찬가지로 브랜치를 다른 브랜치로 합칠 수 있는 기능이다. 단 머지와 차이가 있다면 바로 <code>합치는 방식</code>이다. 머지는 말 그대로 두 개의 브랜치를 하나로 합치는 기능이기 때문에 <code>A</code> 브랜치의 변경 사항 전부를 <code>B</code> 브랜치에 푸쉬하는 것과 동일하다. 그렇기 때문에 머지를 사용하여 브랜치를 합치게 되면 반드시 <code>머지 커밋(Merge commit)</code>이 남게 된다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout feature</span><br><span class="line">$ git merge master</span><br></pre></td></tr></table></figure>
-<center><br>  <img src="/2019/07/28/git-tutorial-advanced/merge.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" rel="external nofollow noopener noreferrer" target="_blank">Merging vs. Rebasing</a></small><br>  <br><br></center>
+<center><br>  <img src="/2019/07/28/git-tutorial-advanced/merge.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" target="_blank" rel="external nofollow noopener noreferrer">Merging vs. Rebasing</a></small><br>  <br><br></center>
 
 <p>그렇기 때문에 머지는 어느 시점에 어떤 브랜치가 머지 되었는 지 커밋을 통해 알기 쉽다는 장점이 있다. 그러나 단점은 <code>불필요한 커밋</code>이 생성된다는 것이다. 이 단점은 작업 중인 브랜치가 별로 많지 않을 때는 나타나지 않지만 브랜치가 많아지면 나중엔 커밋 로그가 머지 커밋으로 뒤덮혀있는 광경을 볼 수도 있게 된다.</p>
 <p>반면 리베이스는 단순히 합치는 것이 아니라 말 그대로 <code>브랜치의 베이스를 변경하는 것</code>이다. 방금 전 예시의 <code>feature</code> 브랜치를 <code>master</code>로 리베이스하게 되면 마치 <code>feature</code> 브랜치의 변경 사항들이 <code>master</code>의 변경 사항이었던 것처럼 히스토리가 기록된다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout feature</span><br><span class="line">$ git rebase master</span><br></pre></td></tr></table></figure>
-<center><br>  <img src="/2019/07/28/git-tutorial-advanced/rebase.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" rel="external nofollow noopener noreferrer" target="_blank">Merging vs. Rebasing</a></small><br>  <br><br></center>
+<center><br>  <img src="/2019/07/28/git-tutorial-advanced/rebase.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" target="_blank" rel="external nofollow noopener noreferrer">Merging vs. Rebasing</a></small><br>  <br><br></center>
 
 <p>리베이스의 장점은 바로 깔끔한 커밋 히스토리를 만들어 준다는 것이다. 머지 커밋이 남지 않고 애초에 <code>master</code>에서 수정한 것 마냥 히스토리가 남기 때문에 깔끔하게 일자로 쭉 떨어지는 이쁜 히스토리를 볼 수 있다. 하지만 리베이스의 단점은 바로 이 <code>커밋 끼워넣기</code> 때문에 발생하는 문제이다.</p>
-<center><br>  <img src="/2019/07/28/git-tutorial-advanced/rebase-problem.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" rel="external nofollow noopener noreferrer" target="_blank">Merging vs. Rebasing</a></small><br>  <br><br></center>
+<center><br>  <img src="/2019/07/28/git-tutorial-advanced/rebase-problem.svg" width="500"><br>  <small>[출처] <a href="https://dzone.com/articles/merging-vs-rebasing" target="_blank" rel="external nofollow noopener noreferrer">Merging vs. Rebasing</a></small><br>  <br><br></center>
 
 <p>필자가 만약 <code>feature</code> 브랜치를 <code>master</code>로 리베이스했다고 가정해보자. 이때 필자가 <code>feature</code> 브랜치를 생성한 이후에 <code>master</code>에 반영된 커밋들은 모두 맨 끝으로 이동하고 중간에 <code>feature</code> 브랜치의 커밋들을 끼워넣게 된다. 즉, 필자가 보고 있는 <code>master</code>의 상태는 <code>feature</code>의 변경 사항들이 반영되어 있는 히스토리를 가지고 있지만 다른 사람의 <code>master</code>는 아직 예전 <code>master</code>의 히스토리와 함께 일하고 있다는 것이다.</p>
 <p>그럼 두개의 <code>master</code>를 강제로 병합해줘야하는데 병합 자체는 푸쉬할때 <code>--force</code> 옵션을 주면 되지만 문제는 이게 굉장히 혼란스러운 상황이라는 것이다. 쉽게 말해서 커밋 히스토리가 꼬이게 되고 사무실의 여기저기서 <code>어? 이거 왜 이래? 왜 푸시 안돼?</code>라는 소리가 들려오기 딱 좋은 상황이다.</p>
@@ -548,7 +548,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -572,7 +572,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

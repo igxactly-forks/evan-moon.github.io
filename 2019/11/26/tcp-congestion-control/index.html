@@ -262,7 +262,7 @@
 <p>확실히 네트워크 내 전체 호스트의 혼잡 윈도우 크기를 보니 필자가 설정해놓은 네트워크 혼잡도인 <code>50</code>을 넘어가지 않는 선에서 자기들끼리 엎치락뒤치락 윈도우 크기를 조절하고 있는 모습을 확인할 수 있었다.</p>
 <p>마찬가지로 이 그래프를 확인해보아도 호스트들이 네트워크에 입퇴장하는 초반부와 후반부를 제외하면 중간 즈음에서는 각 호스트들의 혼잡 윈도우 크기가 크게 차이나지 않는다.</p>
 <p>이렇게 직접 상황을 시뮬레이션해보고 데이터를 확인하니 말로만 들었을 때는 잘 와닿지 않았던 <code>윈도우 크기가 평행 상태로 수렴한다</code>는 이야기를 조금 더 잘 이해할 수 있었다.</p>
-<p>만약 이 코드를 직접 실행시켜서 모든 과정을 확인하고 싶은 분들은 필자가 올려놓은 <a href="https://github.com/evan-moon/tcp-congestion-test" rel="external nofollow noopener noreferrer" target="_blank">깃허브 레파지토리</a>에서 클론받아서 실행시켜보면 된다.</p>
+<p>만약 이 코드를 직접 실행시켜서 모든 과정을 확인하고 싶은 분들은 필자가 올려놓은 <a href="https://github.com/evan-moon/tcp-congestion-test" target="_blank" rel="external nofollow noopener noreferrer">깃허브 레파지토리</a>에서 클론받아서 실행시켜보면 된다.</p>
 <h3 id="Slow-Start"><a href="#Slow-Start" class="headerlink" title="Slow Start"></a>Slow Start</h3><p>위에서 이야기했듯이 AIMD 방식은 윈도우 크기를 선형적으로 증가시키기 때문에, 제대로 된 속도가 나오기까지 시간이 조금 걸리는 단점이 있다.</p>
 <p>사실 요즘에는 네트워크의 대역폭이 워낙 넓고 통신 인프라도 좋다보니 예전에 비해서 네트워크의 혼잡 상황 발생하는 빈도가 많이 줄어들었기 때문에, 혼잡이 발생하지도 않았는데 제대로 속도를 내는데까지 오래걸리는 AIMD 방식의 단점이 점점 부각되었다.</p>
 <p>반면, <code>Slow Start</code>는 기본적인 원리는 AIMD와 비슷하지만 윈도우 크기를 증가시킬 때는 지수적으로 증가시키다가 혼잡이 감지되면 윈도우 크기를 <code>1</code>로 줄여버리는 방식이다.</p>
@@ -335,9 +335,9 @@
 <p>이 포스팅은 다양한 혼잡 제어 정책을 알아보는 것이 아니라, 혼잡 제어라는 매커니즘 자체가 어떤 식으로 흘러가는지 아는 것이 목표이므로 굳이 다른 혼잡 제어 정책은 소개하지 않았다.</p>
 <p>만약 최근에 사용하는 혼잡 제어 정책이 궁금하신 분들은 아래 첨부한 링크에서 조금 더 살펴보도록 하자.</p>
 <blockquote><ul>
-<li><a href="http://squidarth.com/rc/programming/networking/2018/08/01/congestion-cubic.html" rel="external nofollow noopener noreferrer" target="_blank">CUBIC</a></li>
-<li><a href="http://squidarth.com/rc/programming/networking/2018/08/01/congestion-red.html" rel="external nofollow noopener noreferrer" target="_blank">RED</a></li>
-<li><a href="https://ieeexplore.ieee.org/document/8642512" rel="external nofollow noopener noreferrer" target="_blank">Elastic TCP</a></li>
+<li><a href="http://squidarth.com/rc/programming/networking/2018/08/01/congestion-cubic.html" target="_blank" rel="external nofollow noopener noreferrer">CUBIC</a></li>
+<li><a href="http://squidarth.com/rc/programming/networking/2018/08/01/congestion-red.html" target="_blank" rel="external nofollow noopener noreferrer">RED</a></li>
+<li><a href="https://ieeexplore.ieee.org/document/8642512" target="_blank" rel="external nofollow noopener noreferrer">Elastic TCP</a></li>
 </ul>
 </blockquote>
 <p>이상으로 사이 좋게 네트워크를 나눠 쓰는 방법, TCP의 혼잡 제어 포스팅을 마친다.</p>
@@ -495,7 +495,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -519,7 +519,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

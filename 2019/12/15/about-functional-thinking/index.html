@@ -256,9 +256,9 @@
 <center><br>  <img src="/2019/12/15/about-functional-thinking/von_neumann.gif" width="300"><br>  <small>존 폰 노이만 (1903 ~ 1957)</small><br>  <small>괜히 어셈블리 같은 걸 만들어서 컴퓨터 성능 낭비하지 말라고 하신 분</small><br>  <br><br></center>
 
 <p>자바의 경우에는 바이트 코드와 <code>JVM(Java Virtual Machine)</code>이라는 개념을 사용하여 한번만 코드를 작성해도 모든 OS에서 동작하는 프로그램을 작성할 수 있다는 점이 굉장한 강점이었다. OS나 CPU에 종속되어있던 기존의 프로그래밍 언어들에 비해 추상화 수준이 높아진 것이다. 그러나 처음 자바가 나왔을 당시에는 C에 비해서 너무 느려서 못 써먹을 물건이라고 상당히 많이 까였다.</p>
-<p>또한 가비지 컬렉터도 개발자가 일일히 메모리를 할당하고 해제하지 않아도 되는 편리함을 제공하지만 GC가 객체의 메모리 해제 시점을 매번 추적하고 있어야하는 성능 문제나, 개발자가 객체가 메모리에서 해제되는 시점을 정확히 알기 어렵다던가, <a href="https://ko.wikipedia.org/wiki/%EC%B0%B8%EC%A1%B0_%ED%9A%9F%EC%88%98_%EA%B3%84%EC%82%B0_%EB%B0%A9%EC%8B%9D" rel="external nofollow noopener noreferrer" target="_blank">참조 횟수 계산 방식</a>을 사용할 때 순환 참조 객체를 해제하지 못하는 등 문제들이 여전히 존재하기 때문에 늘 완벽하게 동작하지는 않는다.</p>
+<p>또한 가비지 컬렉터도 개발자가 일일히 메모리를 할당하고 해제하지 않아도 되는 편리함을 제공하지만 GC가 객체의 메모리 해제 시점을 매번 추적하고 있어야하는 성능 문제나, 개발자가 객체가 메모리에서 해제되는 시점을 정확히 알기 어렵다던가, <a href="https://ko.wikipedia.org/wiki/%EC%B0%B8%EC%A1%B0_%ED%9A%9F%EC%88%98_%EA%B3%84%EC%82%B0_%EB%B0%A9%EC%8B%9D" target="_blank" rel="external nofollow noopener noreferrer">참조 횟수 계산 방식</a>을 사용할 때 순환 참조 객체를 해제하지 못하는 등 문제들이 여전히 존재하기 때문에 늘 완벽하게 동작하지는 않는다.</p>
 <p>하지만 그렇다고 자바나 가비지 컬렉터나 자바를 사용할 수 있는 환경에서 굳이 C를 사용하고 수동으로 메모리를 관리하고 싶어하는 사람이 많지는 않을 것이다. 애초에 이런 높은 수준의 추상화를 제공하는 기술이 가지는 성능 상의 단점을 머신이 어느 정도 커버할 수 있기 때문에 사람들이 많이 사용하는 것이기도 하다.</p>
-<p>함수형 프로그래밍도 높은 수준의 추상화를 지향하는 패러다임인 만큼 어느 정도 성능 면에서 불리한 점이 있긴 하다. 사실 함수 단위로 프로그램을 추상화하는 개념은 1958년에 <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%8A%A4%ED%94%84" rel="external nofollow noopener noreferrer" target="_blank">LISP</a>가 발표되었을 때부터 시작되었지만, 당시에는 아마 이런 개념이 사치로 느껴졌을 것이다. 메모리가 너무 부족해서 당장 작업 하나 하기도 빡센 데 추상화는 무슨 추상화란 말인가.</p>
+<p>함수형 프로그래밍도 높은 수준의 추상화를 지향하는 패러다임인 만큼 어느 정도 성능 면에서 불리한 점이 있긴 하다. 사실 함수 단위로 프로그램을 추상화하는 개념은 1958년에 <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%8A%A4%ED%94%84" target="_blank" rel="external nofollow noopener noreferrer">LISP</a>가 발표되었을 때부터 시작되었지만, 당시에는 아마 이런 개념이 사치로 느껴졌을 것이다. 메모리가 너무 부족해서 당장 작업 하나 하기도 빡센 데 추상화는 무슨 추상화란 말인가.</p>
 <p>그러나 요즘 머신의 성능은 함수형 프로그래밍이 지향하는 추상화 레벨을 충분히 커버할 수 있을 정도로 예전에 비해 많이 좋아졌기 때문에 성능에 관한 문제는 크게 중요하지 않다고 느껴진다.</p>
 <p>그리고 만약 성능이 진짜 중요한 프로그램을 작성할 때는 굳이 함수형 프로그래밍을 고집하지 않아도 된다. 애초에 이런 패러다임은 어떤 정답이라고 할 게 없기 때문이다. 지금도 최적화를 위해 C나 어셈블리를 사용하는 경우가 있는 것처럼, 함수형 프로그래밍도 상황에 따라 적재적소에 잘 사용하면 된다.</p>
 <p>그럼 함수형 프로그래밍이 제공하는 높은 수준의 추상화가 우리에게 어떤 형태로 나타나는지 알아보기 위해, 기존에 우리에게 익숙한 패러다임인 <code>명령형 프로그래밍</code>과 함수형 프로그래밍의 상위 개념인 <code>선언형 프로그래밍</code>을 한번 비교해보도록 하자.</p>
@@ -361,7 +361,7 @@
         
             <div class="related-posts">
                 <h4>관련 포스팅 보러가기</h4>
-                <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2019/12/29/about-pure-functions/" title="수학에서 기원한 프로그래밍 패러다임, 순수 함수" rel="bookmark">수학에서 기원한 프로그래밍 패러다임, 순수 함수</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/01/05/what-is-immutable/" title="변하지 않는 상태를 유지하는 방법, 불변성(Immutable)" rel="bookmark">변하지 않는 상태를 유지하는 방법, 불변성(Immutable)</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2019/08/24/what-is-object-oriented-programming/" title="알고 보면 재밌는 객체 지향 프로그래밍, OOP 흝어보기" rel="bookmark">알고 보면 재밌는 객체 지향 프로그래밍, OOP 흝어보기</a></h3></div></li></ul>
+                <ul class="popular-posts"><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2019/12/29/about-pure-functions/" title="수학에서 기원한 프로그래밍 패러다임, 순수 함수" rel="bookmark">수학에서 기원한 프로그래밍 패러다임, 순수 함수</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/01/05/what-is-immutable/" title="변하지 않는 상태를 유지하는 방법, 불변성(Immutable)" rel="bookmark">변하지 않는 상태를 유지하는 방법, 불변성(Immutable)</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2020/01/27/20200127-safety-function-composition/" title="어떻게 하면 안전하게 함수를 합성할 수 있을까?" rel="bookmark">어떻게 하면 안전하게 함수를 합성할 수 있을까?</a></h3></div></li><li class="popular-posts-item"><div class="popular-posts-title"><h3><a href="/2019/08/24/what-is-object-oriented-programming/" title="알고 보면 재밌는 객체 지향 프로그래밍, OOP 흝어보기" rel="bookmark">알고 보면 재밌는 객체 지향 프로그래밍, OOP 흝어보기</a></h3></div></li></ul>
             </div>
         
 
@@ -508,7 +508,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -532,7 +532,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

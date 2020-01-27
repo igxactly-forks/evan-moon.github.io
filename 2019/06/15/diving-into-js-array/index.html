@@ -207,7 +207,7 @@
         
         <div class="content">
             <blockquote>
-<p>이 포스팅은 2017년 9월 2일에 Paul Shan이 작성한 <a href="http://voidcanvas.com/javascript-array-evolution-performance/" rel="external nofollow noopener noreferrer" target="_blank">Diving deep into JavaScript array - evolution &amp; performance</a>를 번역한 글입니다. </p>
+<p>이 포스팅은 2017년 9월 2일에 Paul Shan이 작성한 <a href="http://voidcanvas.com/javascript-array-evolution-performance/" target="_blank" rel="external nofollow noopener noreferrer">Diving deep into JavaScript array - evolution &amp; performance</a>를 번역한 글입니다. </p>
 </blockquote>
 <p>포스팅을 시작하기 전에 이 포스팅은 JavaScript 배열의 구문에 관한 것을 알려주거나 예제를 보여주는 등의 기본적인 내용은 아니라고 먼저 얘기해두고 싶다. 이 포스팅에서는 메모리 표현, 최적화, 구문에 따라 달라지는 동작의 차이, 성능 및 최근의 JavaScript 배열이 어떻게 발전했는지에 관해서만 설명할 것이다.<br><a id="more"></a></p>
 <p>필자가 JavaScript를 처음 시작했을 때 필자는 이미 C, C++, C# 등의 언어에 익숙한 상태였다. 그래서 다른 C/C++ 개발자들처럼 JavaScript와의 첫 만남이 그리 좋지는 못했다.</p>
@@ -229,11 +229,11 @@
 <p>이것이 바로 JavaScript의 배열과 진짜 배열이 다른 점이다. 분명히 JavaScript의 배열을 탐색하는 것은 원래의 Linked List 탐색보다는 계산이 적다. 그러나 배열의 길이가 길어질수록 인생이 고달파지는 건 똑같다.</p>
 <h2 id="JavaSciprt-배열의-발전"><a href="#JavaSciprt-배열의-발전" class="headerlink" title="JavaSciprt 배열의 발전"></a>JavaSciprt 배열의 발전</h2><p>예전에는 친구가 컴퓨터에 256MB 짜리 램을 사용한다고 하면 부러움을 느끼던 시절도 있었지만 요즘엔 보통 8GB 정도의 램을 사용한다.</p>
 <p>이와 비슷하게 JavaScript 또한 많은 발전을 이루었다. V8, SpiderMonkey, TC39, 증가하고 있는 웹 사용자들의 피나는 노력으로 인해 JavaScript는 전 세계의 필수 요소가 되었다. 이렇게 거대한 유저 베이스를 가지고 있다면 분명히 성능 향상 또한 필요하다.</p>
-<p>최근의 JavaScript 엔진은 모든 요소가 동일한 타입을 가지고 있는 배열인 경우 연속적으로 메모리를 할당한다. 훌륭한 프로그래머는 항상 배열을 동일한 타입으로 사용하며 <a href="https://ko.wikipedia.org/wiki/JIT_%EC%BB%B4%ED%8C%8C%EC%9D%BC" rel="external nofollow noopener noreferrer" target="_blank">JIT(Just in Time)</a> 컴파일러는 이런 배열에 대해서 C 컴파일러와 같은 배열 계산을 수행한다.<br>그러나 이런 동일한 타입 배열에 다른 타입의 원소를 삽입하려고 할 때 JIT는 전체 배열의 구조를 해제하고 다시 예전의 배열처럼 비연속적인 메모리를 할당한다. 즉, 만약 우리가 코드를 제대로 작성한다면 JavaScript의 <code>Array</code> 객체는 실제 배열처럼 작동한다는 것이다. 이는 모던 JS 개발자들에게는 정말 좋은 일이다.</p>
+<p>최근의 JavaScript 엔진은 모든 요소가 동일한 타입을 가지고 있는 배열인 경우 연속적으로 메모리를 할당한다. 훌륭한 프로그래머는 항상 배열을 동일한 타입으로 사용하며 <a href="https://ko.wikipedia.org/wiki/JIT_%EC%BB%B4%ED%8C%8C%EC%9D%BC" target="_blank" rel="external nofollow noopener noreferrer">JIT(Just in Time)</a> 컴파일러는 이런 배열에 대해서 C 컴파일러와 같은 배열 계산을 수행한다.<br>그러나 이런 동일한 타입 배열에 다른 타입의 원소를 삽입하려고 할 때 JIT는 전체 배열의 구조를 해제하고 다시 예전의 배열처럼 비연속적인 메모리를 할당한다. 즉, 만약 우리가 코드를 제대로 작성한다면 JavaScript의 <code>Array</code> 객체는 실제 배열처럼 작동한다는 것이다. 이는 모던 JS 개발자들에게는 정말 좋은 일이다.</p>
 <p>이에 더해서 배열은 ES2015 또는 ES6를 통해서 더욱 발전했다. TC39 위원회는 JavaScript에 타이핑된 배열을 추가하기로 결정했고 그래서 우리는 <code>ArrayBuffer</code>를 사용할 수 있게 되었다.<br><code>ArrayBuffer</code>는 인접한 메모리 블록을 제공하고 우리가 그것을 마음대로 다룰 수 있게 해준다. 그러나 메모리를 직접 다루는 것은 매우 Low Level이고 또 너무 복잡하기 때문에 우리는 View라는 것을 통해서 ArrayBuffer를 다루게 된다. 이미 몇가지 View를 사용할 수 있고 나중에는 더 추가될 예정이다.</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">8</span>);</span><br><span class="line"><span class="hljs-keyword">var</span> view   = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Int32Array</span>(buffer);</span><br><span class="line">view[<span class="hljs-number">0</span>] = <span class="hljs-number">100</span>;</span><br></pre></td></tr></table></figure>
-<p>만약 당신이 <code>Int32Array</code>와 같은 <em>Typed Array</em>에 대해서 더 알고 싶다면 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" rel="external nofollow noopener noreferrer" target="_blank">MDN Documentation</a>를 참고하기 바란다.</p>
-<p>타이핑된 배열은 굉장히 효율적이다. 타이핑된 배열은 WebGL을 사용하는 사람들이 일반 배열로는 바이너리 데이터를 효과적으로 처리할 수 없는 엄청난 성능 문제에 직면했기 때문에 요청해서 도입된 객체이다.<small>(역주: ThreeJS도 내부적으로는 전부 Typed Array를 사용 중이고, 성능 차이 또한 몸으로 느껴질 정도로 확연하다.)</small> 또한 우리는 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" rel="external nofollow noopener noreferrer" target="_blank">SharedArrayBuffer</a>를 사용하여 여러 개의 Web Worker간 메모리를 공유하여 성능을 끌어올릴 수도 있다.</p>
+<p>만약 당신이 <code>Int32Array</code>와 같은 <em>Typed Array</em>에 대해서 더 알고 싶다면 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="external nofollow noopener noreferrer">MDN Documentation</a>를 참고하기 바란다.</p>
+<p>타이핑된 배열은 굉장히 효율적이다. 타이핑된 배열은 WebGL을 사용하는 사람들이 일반 배열로는 바이너리 데이터를 효과적으로 처리할 수 없는 엄청난 성능 문제에 직면했기 때문에 요청해서 도입된 객체이다.<small>(역주: ThreeJS도 내부적으로는 전부 Typed Array를 사용 중이고, 성능 차이 또한 몸으로 느껴질 정도로 확연하다.)</small> 또한 우리는 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank" rel="external nofollow noopener noreferrer">SharedArrayBuffer</a>를 사용하여 여러 개의 Web Worker간 메모리를 공유하여 성능을 끌어올릴 수도 있다.</p>
 <p>놀랍지 않은가? JavaScript의 배열은 간단한 Hash Map에서 시작해서 이제는 <code>SharedArrayBuffer</code>까지 다루고 있다.</p>
 <h2 id="일반-배열-vs-타이핑된-배열-성능-비교"><a href="#일반-배열-vs-타이핑된-배열-성능-비교" class="headerlink" title="일반 배열 vs 타이핑된 배열 - 성능 비교"></a>일반 배열 vs 타이핑된 배열 - 성능 비교</h2><p>우리는 JavaScript 배열의 발전에 대해서 이야기 했다. 이제 최근의 배열이 얼마나 좋은지 확인해보자. 필자는 Mac과 <code>Node.js 8.4.0</code> 환경에서 몇 개의 작은 테스트를 해보았다.</p>
 <h3 id="일반-배열-–-삽입"><a href="#일반-배열-–-삽입" class="headerlink" title="일반 배열 – 삽입"></a>일반 배열 – 삽입</h3><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> LIMIT = <span class="hljs-number">10000000</span>;</span><br><span class="line"><span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(LIMIT);</span><br><span class="line"><span class="hljs-built_in">console</span>.time(<span class="hljs-string">"Array insertion time"</span>);</span><br><span class="line"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; LIMIT; i++) &#123;</span><br><span class="line">  arr[i] = i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-built_in">console</span>.timeEnd(<span class="hljs-string">"Array insertion time"</span>);</span><br></pre></td></tr></table></figure>
@@ -404,7 +404,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -428,7 +428,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

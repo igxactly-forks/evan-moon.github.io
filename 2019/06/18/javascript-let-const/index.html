@@ -250,7 +250,7 @@
 <p>첫번째는 호이스팅 당한 <code>var</code> 키워드를 사용하여 선언한 변수를 호출한 모습이다. 당연히 참조 에러따윈 나지 않고 깔끔하게 <code>undefined</code>가 출력된다.<br>두번째는 아예 선언한 적이 없는 변수를 호출하는 모습이다. <code>Uncaught ReferenceError</code>가 발생하고 메세지는 <code>aaa is not defined</code>라고 한다.<br>세번째는 <code>let</code> 키워드를 사용하여 선언한 변수를 선언부 이전에 호출한 모습이다. 두번째와 마찬가지로 <code>Uncaught ReferenceError</code>가 발생했지만 에러 메세지는 <code>Cannot access &#39;name&#39; before initialization</code>라고 나온다.</p>
 <h4 id="V8-엔진을-뜯어보자"><a href="#V8-엔진을-뜯어보자" class="headerlink" title="V8 엔진을 뜯어보자"></a>V8 엔진을 뜯어보자</h4><p>이 두개의 에러는 전혀 다른 에러로, V8 엔진 내부에서 사용하는 <code>MESSAGE_TEMPLATE</code>에도 엄밀히 구분되어 있고 실제 호출되는 케이스도 다르다.</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">T(NotDefined, <span class="hljs-string">"% is not defined"</span>)</span><br><span class="line">T(AccessedUninitializedVariable, <span class="hljs-string">"Cannot access '%' before initialization"</span>)</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/v8/v8" rel="external nofollow noopener noreferrer" target="_blank">V8 엔진의 깃허브 레파지토리</a>을 클론받아서 살펴본 결과 내부적으로 <code>var</code> 키워드로 선언된 JS 객체와 <code>let</code>과 <code>const</code>로 선언된 JS 객체를 분기로 갈라놓은 코드가 굉장히 많았다. 코드를 계속 분석해보면서 <code>var</code>, <code>let</code>, <code>const</code> 중 어떤 키워드를 사용하여 값을 선언하든 호이스팅은 항상 이루어진다는 것을 알 수 있었다. V8 엔진 내부의 호이스팅 플래그인 <code>should_hoist</code> 값을 JavaScript 객체에 할당할 때 변수 선언 키워드에 대한 구분을 하지않고 무조건 <code>true</code>를 할당한다.</p>
+<p><a href="https://github.com/v8/v8" target="_blank" rel="external nofollow noopener noreferrer">V8 엔진의 깃허브 레파지토리</a>을 클론받아서 살펴본 결과 내부적으로 <code>var</code> 키워드로 선언된 JS 객체와 <code>let</code>과 <code>const</code>로 선언된 JS 객체를 분기로 갈라놓은 코드가 굉장히 많았다. 코드를 계속 분석해보면서 <code>var</code>, <code>let</code>, <code>const</code> 중 어떤 키워드를 사용하여 값을 선언하든 호이스팅은 항상 이루어진다는 것을 알 수 있었다. V8 엔진 내부의 호이스팅 플래그인 <code>should_hoist</code> 값을 JavaScript 객체에 할당할 때 변수 선언 키워드에 대한 구분을 하지않고 무조건 <code>true</code>를 할당한다.</p>
 <p>그렇다면 <code>var</code> 키워드와 <code>let</code>, <code>const</code> 키워드의 차이는 어디서 오는 것일까? 변수를 선언할 때, 즉 V8이 변수 객체를 생성할 때는 전부 동일하게 처리하지만 변수를 위해 메모리에 공간을 확보하는 초기화 단계에서는 이 키워드들을 다르게 처리한다.</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">static</span> InitializationFlag <span class="hljs-title">DefaultInitializationFlag</span><span class="hljs-params">(VariableMode mode)</span> </span>&#123;</span><br><span class="line">  DCHECK(IsDeclaredVariableMode(mode));</span><br><span class="line">  <span class="hljs-keyword">return</span> mode == VariableMode::kVar ? kCreatedInitialized</span><br><span class="line">                                    : kNeedsInitialization;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>그러나 이후 진행 로직을 보면 <code>DefaultInitializationFlag</code>라는 함수를 통해 V8 엔진 내부에서 사용되는 <code>VariableKind</code>라는 타입을 반환하는데, 이때 <code>var</code> 키워드를 사용하여 선언한 변수는 <code>kCreatedInitialized</code> 값을, 그 외의 키워드인 <code>let</code>과 <code>const</code>로 선언한 변수는 <code>kNeedsInitialization</code> 키워드를 반환하고 있다.</p>
@@ -489,7 +489,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -513,7 +513,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">

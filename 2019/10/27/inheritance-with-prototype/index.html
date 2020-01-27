@@ -267,12 +267,12 @@
 <p>그러나 추상적으로 생각해보면 원본 객체(부모)의 속성을 물려받고 있다는 점에서 착안하여, 프로토타입 룩업을 토대로 상속을 구현할 수 있다.</p>
 <h2 id="프로토타입을-사용한-상속"><a href="#프로토타입을-사용한-상속" class="headerlink" title="프로토타입을 사용한 상속"></a>프로토타입을 사용한 상속</h2><p>자바스크립트에서 프로토타입을 사용하여 상속을 구현하는 방법은 크게 <code>Object.create</code> 메소드를 사용하는 방법과 이 메소드를 사용하지않는 <small>(더러운)</small> 방법, 두 가지로 나누어질 수 있다.</p>
 <p>사실 <code>Object.create</code>만 사용해도 프로토타입을 사용한 상속은 충분히 구현이 가능하다. 하지만 굳이 두 가지를 나눠서 이야기한 이유는, <code>Object.create</code> 메소드가 <code>Internet Explorer 9</code>부터 지원이 되기 때문이다.</p>
-<p>하지만 필자는 필자의 행복을 위해 쓰는 포스팅에서 <code>IE 8</code> 이하 환경에 대한 자세한 이야기는 별로 하고 싶지 않으므로 <code>Object.create</code>를 사용하지 않는 방법에 대한 코드를 간단하게 <a href="https://gist.github.com/evan-moon/a7e5a51e20d22016ea443a03480765b7" rel="external nofollow noopener noreferrer" target="_blank">필자의 Github Gist 링크</a>로 첨부하겠다.</p>
+<p>하지만 필자는 필자의 행복을 위해 쓰는 포스팅에서 <code>IE 8</code> 이하 환경에 대한 자세한 이야기는 별로 하고 싶지 않으므로 <code>Object.create</code>를 사용하지 않는 방법에 대한 코드를 간단하게 <a href="https://gist.github.com/evan-moon/a7e5a51e20d22016ea443a03480765b7" target="_blank" rel="external nofollow noopener noreferrer">필자의 Github Gist 링크</a>로 첨부하겠다.</p>
 <h3 id="Object-create를-사용하자"><a href="#Object-create를-사용하자" class="headerlink" title="Object.create를 사용하자"></a>Object.create를 사용하자</h3><p><code>Object.create</code> 메소드는 첫 번째 인자로 생성할 객체의 원본 객체가 될 객체, 두 번째 인자로 새로 생성할 객체에 추가할 프로퍼티를 객체 타입으로 받는다.</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Object</span>.create(proto: <span class="hljs-built_in">Object</span>, properties?: <span class="hljs-built_in">Object</span>);</span><br></pre></td></tr></table></figure>
 <p>이때 두 번째 인자는 선택사항이며, 단순하게 <code>{ test: 1 }</code>처럼 넘기는 것이 아니라, <code>Object.defineProperties</code> 메소드를 사용할 때 처럼 데이터 서술자와 접근 서술자를 지정해줘야한다.</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Object</span>.create(User.prototype, &#123;</span><br><span class="line">  foo: &#123;</span><br><span class="line">    configurable: <span class="hljs-literal">false</span>,</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    value: <span class="hljs-string">'I am Foo!'</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>자세한 프로퍼티들의 의미는 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" rel="external nofollow noopener noreferrer" target="_blank">MDN Web Docs: Object.defineProperties</a>에서 확인해보도록 하자.</p>
+<p>자세한 프로퍼티들의 의미는 <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" target="_blank" rel="external nofollow noopener noreferrer">MDN Web Docs: Object.defineProperties</a>에서 확인해보도록 하자.</p>
 <p>이 메소드에서 중요한 포인트는 <code>객체의 프로토타입 객체</code>를 지정할 수 있다는 것이며, 이 말인 즉슨 객체의 프로토타입 체인을 내 맘대로 만져줄 수 있다는 것이다. 심지어 동적으로 변경도 가능하다.<small>(사실 이게 JS의 변태적인 면…)</small></p>
 <p>그럼 이제 <code>Object.create</code> 메소드와 프로토타입을 사용하여 상속을 한번 구현해보도록 하자.</p>
 <figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SuperClass</span> (<span class="hljs-params">name</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">SuperClass.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`I am <span class="hljs-subst">$&#123;<span class="hljs-keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -440,7 +440,7 @@
                 <span class="level-item">Programming</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">44</span>
+                <span class="level-item tag">45</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/programming/algorithm/" data-link-name="category">
@@ -464,7 +464,7 @@
                 <span class="level-item">Design</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/git/" data-link-name="category">
