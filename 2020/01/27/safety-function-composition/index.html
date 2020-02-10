@@ -311,7 +311,7 @@ h = g\circ f
 <p>그리고 이렇게 값을 감싸고 있는 무언가를 효율적으로 사용하려면 내부에 있는 값을 자유롭게 변경할 수 있어야 하므로 <code>Maybe&lt;T&gt; -&gt; Maybe&lt;U&gt;</code>와 같은 동작을 수행할 수 있는 무언가도 필요할 것 같다.</p>
 <p>이런 고민 끝에 프로그래머들은 이런 비슷한 역할을 수행하는 수학의 한 개념을 차용하게 되는데, 그 개념이 바로 <code>펑터(Functor)</code>이다.</p>
 <h2 id="펑터란-무엇일까"><a href="#펑터란-무엇일까" class="headerlink" title="펑터란 무엇일까?"></a>펑터란 무엇일까?</h2><p>펑터는 보통 값을 품고 있는 어떠한 박스의 형태로 설명되고는 한다. 방금 위에서 설명한 것과 같이 함수의 정상적인 결과와 사이드 이펙트를 감싸서 처리할 수 있는 무언가를 설명하기에는 박스가 적절한 예시이기 때문이다.</p>
-<center><br>  <img src="/2020/01/27/safety-function-composition/fmap_just.png"><br>  <small>[출처] <a href="http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html" rel="external nofollow noopener noreferrer" target="_blank">Functors, Applicatives, And Monads In Pictures</a></small><br>  <br><br></center>
+<center><br>  <img src="/2020/01/27/safety-function-composition/fmap_just.png"><br>  <small>[출처] <a href="http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html" target="_blank" rel="external nofollow noopener noreferrer">Functors, Applicatives, And Monads In Pictures</a></small><br>  <br><br></center>
 
 <p>저 박스는 결국 안전하게 값을 사용할 수 있도록 도와주는 로직을 가지고 있거나, 혹은 여러 개의 값을 처리할 수 있는 로직을 가지고 있거나, 아직은 값이 결정되지 않았지만 나중에 값이 결정되고 나면 값을 사용할 수 있는 로직을 가지고 있는 등, 값을 사용할 때 도움을 주는 여러가지 로직을 담고 있는 마법의 박스라고 할 수 있다.</p>
 <p>이때 이 박스는 역할이 고정된 것이 아니라 <code>Maybe</code>, <code>Promise</code> 등 다양한 기능을 가질 수도 있기 때문에 <code>문맥(Context)</code>이라는 이름으로 불리기도 한다.</p>
@@ -331,7 +331,7 @@ h = g\circ f
 <li>임의의 두 대상 $a,b \in ob(C)$에 대하여, $a$를 정의역으로, $b$를 공역으로 하는 사상(寫像, 영어: morphism)들의 모임 $f\colon a\to b$로 쓰고, $f$를 $a$에서 $b$로 가는 사상’이라고 한다. $C$의 사상의 모임을 $\hom(C)$로 나타낸다.</li>
 <li>임의의 세 대상 $a,b,c\in ob(C)$에 대하여, 이항 연산 $\hom(a,b)\times \hom(b,c)\to \hom(a,c)$. 이를 사상의 합성(合成, 영어: composition)이라고 한다. $f\colon a\to b$와 $g\colon b\to c$의 합성은 $g\circ f$ 또는 $gf$ 등으로 나타낸다.<br>…</li>
 </ul>
-<footer><strong>위키피디아</strong><cite><a href="https://ko.wikipedia.org/wiki/%EB%B2%94%EC%A3%BC_(%EC%88%98%ED%95%99)" rel="external nofollow noopener noreferrer" target="_blank">범주(수학)</a></cite></footer></blockquote>
+<footer><strong>위키피디아</strong><cite><a href="https://ko.wikipedia.org/wiki/%EB%B2%94%EC%A3%BC_(%EC%88%98%ED%95%99)" target="_blank" rel="external nofollow noopener noreferrer">범주(수학)</a></cite></footer></blockquote>
 <center><br>  <img src="/2020/01/27/safety-function-composition/what.jpeg" width="500"><br>  <small>읭…?</small><br>  <br><br></center>
 
 <p>사실 카테고리 이론의 개괄적인 내용은 누구나 다 간단하게 이해할 수 있는 수준의 내용이다. 단지 추상적인 학문인 수학의 특성 상 일상적인 언어로 풀어서 설명하면 너무 길어지고 복잡해지니 간단하게 축약할 수 있는 단어와 기호들로 표현한 것 뿐이다. <small>(사실 이게 수포자가 생기는 원인 중 하나)</small></p>
@@ -497,7 +497,13 @@ h = g\circ f
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <!-- <div class="level-item card to-home">
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2020/02/11/question-driven-thinking/">
+                <i class="fas fa-chevron-left"></i> Question Driven Thinking - 스스로 질문하며 학습하기
+            </a>
+        </div>
+        
+        <!-- <div class="with-prev card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
@@ -597,7 +603,7 @@ h = g\circ f
                 <span class="level-item">Essay</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">12</span>
+                <span class="level-item tag">13</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/programming/" data-link-name="category">

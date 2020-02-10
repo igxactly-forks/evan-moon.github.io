@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://evan-moon.github.io/2020/02/11/question-driven-thinking/</loc>
+        <lastmod>2020-02-10T16:33:08.589Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://evan-moon.github.io/2020/01/27/safety-function-composition/</loc>
         <lastmod>2020-01-27T08:23:45.438Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -224,7 +232,7 @@
     </url>
 
     <url>
-        <loc>https://evan-moon.github.io/2019/09/05/about-software-craftsmanship/</loc>
+        <loc>https://evan-moon.github.io/2019/08/30/commit-history-merge-strategy/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -232,7 +240,7 @@
     </url>
 
     <url>
-        <loc>https://evan-moon.github.io/2019/08/30/commit-history-merge-strategy/</loc>
+        <loc>https://evan-moon.github.io/2019/09/05/about-software-craftsmanship/</loc>
         <lastmod>2019-10-01T07:36:01.507Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
